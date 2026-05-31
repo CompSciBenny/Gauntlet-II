@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://d0r2qe2tjre7s"]
 
-[ext_resource type="Script" uid="uid://cr4lide2iatmm" path="res://Scripts/enemy.gd" id="1_nbfmf"]
+[ext_resource type="Script" uid="uid://dk0p4guiaxt8t" path="res://Scripts/Enemies/acid_puddle.gd" id="1_nbfmf"]
 [ext_resource type="Texture2D" uid="uid://dbedlhpt3w46t" path="res://Assets/Sprite Sheets/GauntletSamples.png" id="2_4qwte"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6d2h5"]
-radius = 16.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xqvrf"]
 radius = 16.0
@@ -255,14 +255,21 @@ properties/2/path = NodePath(".:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Acid Puddle" type="CharacterBody2D" unique_id=610540813]
+[node name="Acid Puddle" type="CharacterBody2D" unique_id=610540813 node_paths=PackedStringArray("attack_cooldown_timer", "hurtbox_area")]
 collision_layer = 4
 collision_mask = 806
-platform_floor_layers = 4278190080
+platform_floor_layers = 4278190084
+platform_wall_layers = 1830
 script = ExtResource("1_nbfmf")
-health = 4
-damage = 10
+attack_cooldown_timer = NodePath("Attack Cooldown Timer")
+health = 999
+damage = 5
+attack_rate = 15.0
 speed = 65.0
+passive = true
+stun_on_attack = true
+invulnerable = true
+hurtbox_area = NodePath("Hurtbox Area")
 metadata/_edit_lock_ = true
 
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=338227810]
@@ -271,7 +278,7 @@ metadata/_edit_lock_ = true
 
 [node name="Hurtbox Area" type="Area2D" parent="." unique_id=2103909651]
 collision_layer = 4
-collision_mask = 8
+collision_mask = 10
 
 [node name="Hurtbox Collider" type="CollisionShape2D" parent="Hurtbox Area" unique_id=1273802243]
 shape = SubResource("CircleShape2D_xqvrf")
@@ -298,3 +305,6 @@ debug_path_custom_color = Color(1, 0, 1, 1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2079375016]
 replication_config = SubResource("SceneReplicationConfig_xqvrf")
+
+[node name="Attack Cooldown Timer" type="Timer" parent="." unique_id=1143151893]
+one_shot = true

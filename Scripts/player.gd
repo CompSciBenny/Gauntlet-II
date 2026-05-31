@@ -33,6 +33,7 @@ enum State {
 	SHOOTING,
 	EXITING,
 	TRANSPORTING,
+	STUNNED,
 }
 
 signal exited_level
@@ -79,7 +80,7 @@ func _physics_process(delta: float) -> void:
 	if (not is_multiplayer_authority() or state == State.EXITING or state == State.TRANSPORTING): return
 	
 	if (not move_dir == Vector2.ZERO): last_nonzero_move_dir = move_dir
-	if (state == State.STARTING_SHOT or state == State.SHOOTING):
+	if (state == State.STARTING_SHOT or state == State.SHOOTING or state == State.STUNNED):
 		move_dir = Vector2.ZERO
 	else:
 		move_dir = Input.get_vector("left", "right", "up", "down")
@@ -120,7 +121,7 @@ func shoot(bullet_move_dir : Vector2) -> void:
 	%"Post Shot Timer".start(post_shot_time)
 
 func handle_state() -> void:
-	if (state == State.TRANSPORTING): return
+	if (state == State.TRANSPORTING or state == State.STUNNED): return
 	if (is_on_exit_tile() and not state == State.EXITING):
 		state = State.EXITING
 		exit_level()
@@ -136,7 +137,7 @@ func handle_state() -> void:
 func handle_sprite() -> void:
 	var anim_name : String = ""
 	anim_name += get_color_and_class() + " "
-	if (state == State.IDLE):
+	if (state == State.IDLE or state == State.STUNNED):
 		anim_name += Global.get_direction_name(look_dir)
 		%Sprite.animation = anim_name
 		%Sprite.stop()
@@ -350,6 +351,12 @@ func update_debug_panel() -> void:
 	%"Health Label".text = "Health: " + str(health)
 	%"Keys Label".text = "Keys: " + str(key_count)
 
+# Called by enemies that stun the player (Death, Acid Puddle, etc.)
+func _set_stunned(is_stunned : bool) -> void:
+	if (is_stunned):
+		state = State.STUNNED
+	else:
+		state = State.IDLE
 
 func _on_sprite_animation_finished() -> void:
 	if (not is_multiplayer_authority()): return

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dbedlhpt3w46t" path="res://Assets/Sprite Sheets/GauntletSamples.png" id="2_dwwue"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6d2h5"]
-radius = 16.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xqvrf"]
 radius = 16.0
@@ -264,7 +264,7 @@ attack_cooldown_timer = NodePath("Attack Cooldown Timer")
 health = 4
 damage = 15
 attack_rate = 1.2
-speed = 60.0
+speed = 65.0
 hurtbox_area = NodePath("Hurtbox Area")
 metadata/_edit_lock_ = true
 

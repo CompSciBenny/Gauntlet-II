@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://behefgkwq0ui1" path="res://Scenes/fireball.tscn" id="2_040qw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6d2h5"]
-radius = 16.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xqvrf"]
 radius = 16.0
@@ -258,7 +258,7 @@ properties/2/replication_mode = 1
 
 [node name="Demon" type="CharacterBody2D" unique_id=610540813 node_paths=PackedStringArray("attack_cooldown_timer", "hurtbox_area")]
 collision_layer = 4
-collision_mask = 806
+collision_mask = 1830
 platform_floor_layers = 4278190080
 script = ExtResource("1_u8kdg")
 melee_attack_range = 96
@@ -269,7 +269,7 @@ fireball_scene = ExtResource("2_040qw")
 health = 5
 damage = 15
 attack_rate = 1.0
-speed = 50.0
+speed = 60.0
 hurtbox_area = NodePath("Hurtbox Area")
 metadata/_edit_lock_ = true
 
@@ -279,7 +279,7 @@ metadata/_edit_lock_ = true
 
 [node name="Hurtbox Area" type="Area2D" parent="." unique_id=2103909651]
 collision_layer = 4
-collision_mask = 8
+collision_mask = 10
 
 [node name="Hurtbox Collider" type="CollisionShape2D" parent="Hurtbox Area" unique_id=1273802243]
 shape = SubResource("CircleShape2D_xqvrf")

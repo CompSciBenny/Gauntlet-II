@@ -5,12 +5,18 @@ class_name Enemy extends CharacterBody2D
 @export var attack_rate : float
 @export var speed : float
 
+@export var passive : bool = false			# Passive enemies do not chase players, but roam randomly
+@export var stun_on_attack : bool = false
+@export var invulnerable : bool = false
+
 @export var hurtbox_area : Area2D
 
 var target : Player
+var roam_target_pos : Vector2
+var prev_target : Player
 var move_dir : Vector2 = Vector2.ZERO
 var look_dir : Vector2
-var can_attack : bool = true
+var total_damage_dealt : int = 0
 
 var state : State = State.IDLE
 enum State {
@@ -21,8 +27,11 @@ enum State {
 }
 
 func _process(delta: float) -> void:
+	if (target): prev_target = target
 	target = get_closest_player()
 	handle_sprite()
+	if (prev_target and not target == prev_target): prev_target._set_stunned(false)	# Prevents players from being stunned indefinitely
+	if (check_alternative_death_condition()): die()
 
 func _physics_process(delta: float) -> void:
 	velocity = move_dir * (speed * delta)
@@ -36,6 +45,13 @@ func get_closest_player() -> Player:
 			closest_player = p
 	return closest_player
 
+func roam() -> void:
+	if (not roam_target_pos): _on_roam_timer_timeout()
+	%"Nav Agent".target_position = roam_target_pos
+	if (not %"Nav Agent".is_target_reached()):
+		move_dir = global_position.direction_to(%"Nav Agent".get_next_path_position())
+	else:
+		move_dir = Vector2.ZERO
 func chase_target() -> void:
 	%"Nav Agent".target_position = target.global_position
 	if (not %"Nav Agent".is_target_reached()):
@@ -79,8 +95,19 @@ func is_touching_target() -> bool:
 			return true
 	return false
 
+func check_alternative_death_condition() -> bool:
+	return false
+
+func die() -> void:
+	target._set_stunned(false)
+	hide()
+	queue_free()
 func _take_damage(damage_to_take : int) -> void:
+	if (invulnerable): return
 	health -= damage_to_take
 	if (health <= 0):
-		hide()
-		queue_free()
+		die()
+
+func _on_roam_timer_timeout() -> void:
+	roam_target_pos = Global.get_random_floor_tile_pos()
+	get_tree().create_timer(randf_range(1., 2.5)).timeout.connect(_on_roam_timer_timeout)

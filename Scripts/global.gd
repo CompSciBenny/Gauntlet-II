@@ -93,6 +93,10 @@ func get_cardinal_tiles(tile : Vector2i, range : int) -> Array[Vector2i]:
 		cardinal_tiles.append(tile + Vector2i(-i, i))	# DOWN LEFT
 	return cardinal_tiles
 
+func get_random_floor_tile_pos() -> Vector2:
+	var rand_floor_tile : Vector2i = Global.main.current_level.ground_layer.get_used_cells().pick_random()
+	return map_to_global(rand_floor_tile)
+
 func get_closest_tile(global_position : Vector2, tiles : Array[Vector2i]) -> Vector2i:
 	var tile_coord : Vector2i = global_to_map(global_position)
 	var closest_tile : Vector2i = tiles[0]

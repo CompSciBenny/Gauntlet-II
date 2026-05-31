@@ -45,15 +45,6 @@ func handle_behavior() -> void:
 		move_dir = Vector2.ZERO
 
 func range_attack_player() -> void:
-	#var tiles_to_go_to : Array[Vector2i] = Global.get_cardinal_tiles(Global.global_to_map(target.global_position), 10)
-	#var tile_to_go_to : Vector2i = Global.get_closest_tile(global_position, tiles_to_go_to)
-
-	#if (global_position.distance_to(Global.map_to_global(tile_to_go_to)) <= 6):
-		#move_dir = Vector2.ZERO
-		##shoot_fireball()
-		#attack_cooldown_timer.start(1. / attack_rate)
-	#else:
-		#go_to_tile(Global.map_to_global(tile_to_go_to))
 	move_dir = Vector2.ZERO
 	if (not attack_cooldown_timer.is_stopped()): return
 	for ray_cast : RayCast2D in %"Ray Casts".get_children():

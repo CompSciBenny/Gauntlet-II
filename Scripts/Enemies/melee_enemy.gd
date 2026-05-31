@@ -20,11 +20,16 @@ func handle_state() -> void:
 
 func handle_behavior() -> void:
 	if (state == State.CHASING):
-		chase_target()
+		if (passive):
+			roam()
+		else:
+			chase_target()
 	elif (state == State.ATTACKING):
 		attack()
 
 func attack() -> void:
 	if (attack_cooldown_timer.is_stopped()):
+		if (stun_on_attack): target._set_stunned(true)
 		target._take_damage(damage)
 		attack_cooldown_timer.start(1. / attack_rate)
+		total_damage_dealt += damage
