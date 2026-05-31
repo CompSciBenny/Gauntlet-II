@@ -1,0 +1,216 @@
+[gd_scene format=3 uid="uid://dwbo5dbgua3vt"]
+
+[ext_resource type="Texture2D" uid="uid://wiwx5hieydiv" path="res://Assets/UI/player_banner.png" id="1_bv8yq"]
+[ext_resource type="Script" uid="uid://d36fajy5o7jx5" path="res://Scripts/UI/player_banner.gd" id="2_envqw"]
+[ext_resource type="Texture2D" uid="uid://cknrn7indu7fk" path="res://Assets/UI/warrior_class_title.png" id="2_ywc5q"]
+[ext_resource type="Texture2D" uid="uid://rrm8qm4733sk" path="res://Assets/UI/elf_class_title.png" id="3_676qv"]
+[ext_resource type="Theme" uid="uid://c8eacxr42skll" path="res://Assets/Themes/arcade_theme.tres" id="3_envqw"]
+[ext_resource type="Texture2D" uid="uid://cs6n7241bc13v" path="res://Assets/UI/key_ui_icon.png" id="4_fkyj3"]
+[ext_resource type="Texture2D" uid="uid://d0kxoefnclw13" path="res://Assets/UI/valkyrie_class_title.png" id="4_sq0ub"]
+[ext_resource type="Texture2D" uid="uid://by13e04ia44kw" path="res://Assets/UI/wizard_class_title.png" id="5_mrqjm"]
+[ext_resource type="Texture2D" uid="uid://crcuijyyo1kid" path="res://Assets/UI/potion_ui_icon.png" id="5_s6con"]
+
+[node name="Player Banner" type="Control" unique_id=31150869]
+custom_minimum_size = Vector2(224, 62)
+layout_mode = 3
+anchor_right = 0.35000002
+anchor_bottom = 0.155
+offset_right = -1.5258789e-05
+script = ExtResource("2_envqw")
+warrior_title_texture = ExtResource("2_ywc5q")
+elf_title_texture = ExtResource("3_676qv")
+valkyrie_title_texture = ExtResource("4_sq0ub")
+wizard_title_texture = ExtResource("5_mrqjm")
+key_icon_texture = ExtResource("4_fkyj3")
+potion_icon_texture = ExtResource("5_s6con")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Player Banner" type="TextureRect" parent="." unique_id=1469126295]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(224, 62)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_bv8yq")
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Score Label" type="Label" parent="Player Banner" unique_id=903485064]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 0
+offset_top = 30.0
+offset_right = 112.0
+offset_bottom = 46.0
+theme = ExtResource("3_envqw")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "000000"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Health Label" type="Label" parent="Player Banner" unique_id=778939306]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5715714
+anchor_top = 0.48400003
+anchor_right = 0.92871433
+anchor_bottom = 0.74200004
+offset_left = -0.03199768
+offset_top = -0.0080013275
+offset_right = -0.03201294
+offset_bottom = -0.0040016174
+theme = ExtResource("3_envqw")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "00000"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Class Title" type="TextureRect" parent="Player Banner" unique_id=246043001]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(224, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.25800002
+offset_bottom = 0.0039987564
+texture = ExtResource("3_676qv")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Key Slots Container" type="HBoxContainer" parent="." unique_id=1904641924]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07107144
+anchor_top = 0.74200004
+anchor_right = 0.9285714
+anchor_bottom = 1.0
+offset_left = 0.07999802
+offset_top = -0.0040016174
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Key Slot 1" type="TextureRect" parent="Key Slots Container" unique_id=1024049076]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_fkyj3")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Key Slot 2" type="TextureRect" parent="Key Slots Container" unique_id=1538563308]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_fkyj3")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Key Slot 3" type="TextureRect" parent="Key Slots Container" unique_id=1085866776]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_fkyj3")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Key Slot 4" type="TextureRect" parent="Key Slots Container" unique_id=776620859]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_fkyj3")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Key Slot 5" type="TextureRect" parent="Key Slots Container" unique_id=1068864873]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_fkyj3")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Key Slot 6" type="TextureRect" parent="Key Slots Container" unique_id=243926326]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_fkyj3")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Key Slot 7" type="TextureRect" parent="Key Slots Container" unique_id=243896581]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_fkyj3")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Potion Slots Container" type="HBoxContainer" parent="." unique_id=1960918212]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07107144
+anchor_top = 0.74200004
+anchor_right = 0.9285714
+anchor_bottom = 1.0
+offset_left = 0.07999802
+offset_top = -0.0040016174
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 2
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Potion Slot 1" type="TextureRect" parent="Potion Slots Container" unique_id=66661628]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("5_s6con")
+metadata/_edit_lock_ = true
+
+[node name="Potion Slot 2" type="TextureRect" parent="Potion Slots Container" unique_id=520974855]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("5_s6con")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Potion Slot 3" type="TextureRect" parent="Potion Slots Container" unique_id=1591270214]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("5_s6con")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Potion Slot 4" type="TextureRect" parent="Potion Slots Container" unique_id=1336192913]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("5_s6con")
+expand_mode = 2
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Invulnerable Blink Effect Timer" type="Timer" parent="." unique_id=1819919185]
+unique_name_in_owner = true
+wait_time = 0.35
+
+[connection signal="timeout" from="Invulnerable Blink Effect Timer" to="." method="_on_invulnerable_blink_effect_timer_timeout"]

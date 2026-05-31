@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dytxckecq42lh"]
+
+[ext_resource type="Script" uid="uid://c4tmdmhotub05" path="res://Scripts/main.gd" id="1_14pre"]
+[ext_resource type="PackedScene" uid="uid://ucabdyrsn7bt" path="res://Scenes/UI/multiplayer_ui.tscn" id="1_f1qr7"]
+[ext_resource type="Script" uid="uid://c1g12cc12wuaa" path="res://Scripts/player_spawner.gd" id="2_14pre"]
+[ext_resource type="PackedScene" uid="uid://dqp3koxevnhjm" path="res://Scenes/player.tscn" id="3_y3o8n"]
+[ext_resource type="PackedScene" uid="uid://b3tljq4s5qc4q" path="res://Scenes/UI/ui.tscn" id="4_21xkr"]
+[ext_resource type="Script" uid="uid://bj211avbnkgkg" path="res://Scripts/level_spawner.gd" id="5_6bp64"]
+
+[node name="Main" type="Node2D" unique_id=1147173165]
+script = ExtResource("1_14pre")
+
+[node name="Player Container" type="Node2D" parent="." unique_id=2069757221]
+unique_name_in_owner = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=666609817]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("uid://dqp3koxevnhjm")
+spawn_path = NodePath("../Player Container")
+script = ExtResource("2_14pre")
+network_player = ExtResource("3_y3o8n")
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="." unique_id=154981294]
+unique_name_in_owner = true
+spawn_path = NodePath("..")
+script = ExtResource("5_6bp64")
+
+[node name="UI Container" type="CanvasLayer" parent="." unique_id=821411300]
+
+[node name="UI" parent="UI Container" unique_id=247293930 instance=ExtResource("4_21xkr")]
+custom_minimum_size = Vector2(640, 400)
+
+[node name="Multiplayer UI" parent="UI Container" unique_id=730965100 instance=ExtResource("1_f1qr7")]
+visible = false
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://dk4b2gguuh8ye"]
+
+[ext_resource type="Script" uid="uid://cmutdgvo2p0y2" path="res://Scripts/amulet.gd" id="1_uyq70"]
+[ext_resource type="Texture2D" uid="uid://dbedlhpt3w46t" path="res://Assets/Sprite Sheets/GauntletSamples.png" id="2_n31ce"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_465i4"]
+size = Vector2(12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyq70"]
+atlas = ExtResource("2_n31ce")
+region = Rect2(615, 113, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n31ce"]
+atlas = ExtResource("2_n31ce")
+region = Rect2(633, 113, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqobk"]
+atlas = ExtResource("2_n31ce")
+region = Rect2(669, 113, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3t1q"]
+atlas = ExtResource("2_n31ce")
+region = Rect2(651, 113, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mua3t"]
+atlas = ExtResource("2_n31ce")
+region = Rect2(687, 113, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwqrt"]
+atlas = ExtResource("2_n31ce")
+region = Rect2(705, 113, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tm0qx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyq70")
+}],
+"loop": false,
+"name": &"INVISIBILITY",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n31ce")
+}],
+"loop": false,
+"name": &"INVULNERABILITY",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sqobk")
+}],
+"loop": false,
+"name": &"REFLECTIVE_SHOTS",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3t1q")
+}],
+"loop": false,
+"name": &"REPULSIVENESS",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mua3t")
+}],
+"loop": false,
+"name": &"TEN_SUPER_SHOTS",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwqrt")
+}],
+"loop": false,
+"name": &"TRANSPORTABILITY",
+"speed": 0.0
+}]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_uyq70"]
+properties/0/path = NodePath("Sprite:animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:amulet_effect")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Collect Area" type="Area2D" unique_id=1580077667 groups=["amulet"]]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_uyq70")
+metadata/_edit_lock_ = true
+
+[node name="Collect Collider" type="CollisionShape2D" parent="." unique_id=1863321703]
+shape = SubResource("RectangleShape2D_465i4")
+metadata/_edit_lock_ = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=2132551432]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_tm0qx")
+animation = &"INVISIBILITY"
+metadata/_edit_lock_ = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2127541008]
+replication_config = SubResource("SceneReplicationConfig_uyq70")

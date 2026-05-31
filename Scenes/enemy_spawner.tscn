@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://byg3tu8e51i78"]
+
+[ext_resource type="Script" uid="uid://bjdv7eyiwx8m" path="res://Scripts/enemy_spawner.gd" id="1_66y63"]
+[ext_resource type="Texture2D" uid="uid://dyds3sudmobuf" path="res://Assets/Enemy Spawners/ghost_spawner_3.png" id="1_cdqhx"]
+[ext_resource type="PackedScene" uid="uid://vnm6r6dt4na" path="res://Scenes/Enemies/ghost.tscn" id="2_a75ph"]
+[ext_resource type="Texture2D" uid="uid://ls0mixw1myaq" path="res://Assets/Enemy Spawners/ghost_spawner_2.png" id="2_tdwud"]
+[ext_resource type="Texture2D" uid="uid://bg583hrrtrw8n" path="res://Assets/Enemy Spawners/ghost_spawner_1.png" id="3_gga2x"]
+[ext_resource type="Texture2D" uid="uid://ib1esot8xmcs" path="res://Assets/Enemy Spawners/enemy_spawner_1.png" id="4_2cu8b"]
+[ext_resource type="Texture2D" uid="uid://br1hf7lf6vyeb" path="res://Assets/Enemy Spawners/enemy_spawner_2.png" id="5_66y63"]
+[ext_resource type="Texture2D" uid="uid://dmy8nwhg3s0o8" path="res://Assets/Enemy Spawners/enemy_spawner_3.png" id="6_a75ph"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ee638"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a75ph"]
+size = Vector2(32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_myj3l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_cdqhx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_tdwud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gga2x")
+}],
+"loop": false,
+"name": &"Ghost",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2cu8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_66y63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_a75ph")
+}],
+"loop": false,
+"name": &"Other",
+"speed": 0.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66y63"]
+size = Vector2(28, 28)
+
+[node name="Enemy Spawner" type="StaticBody2D" unique_id=1973702186]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_66y63")
+enemy_to_spawn = 1
+spawn_delay = 2.5
+health = 3
+ghost_scene = ExtResource("2_a75ph")
+metadata/_edit_lock_ = true
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=768378392]
+shape = SubResource("RectangleShape2D_ee638")
+metadata/_edit_lock_ = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1937424386]
+collision_layer = 10
+collision_mask = 0
+
+[node name="Hurtbox Collider" type="CollisionShape2D" parent="Hurtbox" unique_id=1246399741]
+shape = SubResource("RectangleShape2D_a75ph")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1880221492]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_myj3l")
+animation = &"Other"
+frame = 3
+metadata/_edit_lock_ = true
+
+[node name="Spawn Areas" type="Node2D" parent="." unique_id=1796214009]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
+
+[node name="Up Spawn Area" type="Area2D" parent="Spawn Areas" unique_id=1784901894]
+position = Vector2(0, -32)
+collision_layer = 0
+collision_mask = 870
+metadata/_edit_lock_ = true
+
+[node name="Area Collider" type="CollisionShape2D" parent="Spawn Areas/Up Spawn Area" unique_id=638180594]
+shape = SubResource("RectangleShape2D_66y63")
+metadata/_edit_lock_ = true
+
+[node name="Up Right Spawn Area" type="Area2D" parent="Spawn Areas" unique_id=159190918]
+position = Vector2(32, -32)
+collision_layer = 0
+collision_mask = 870
+metadata/_edit_lock_ = true
+
+[node name="Area Collider" type="CollisionShape2D" parent="Spawn Areas/Up Right Spawn Area" unique_id=83159]
+shape = SubResource("RectangleShape2D_66y63")
+metadata/_edit_lock_ = true
+
+[node name="Right Spawn Area" type="Area2D" parent="Spawn Areas" unique_id=1464278712]
+position = Vector2(32, 0)
+collision_layer = 0
+collision_mask = 870
+metadata/_edit_lock_ = true
+
+[node name="Area Collider" type="CollisionShape2D" parent="Spawn Areas/Right Spawn Area" unique_id=1805145771]
+shape = SubResource("RectangleShape2D_66y63")
+metadata/_edit_lock_ = true
+
+[node name="Down Right Spawn Area" type="Area2D" parent="Spawn Areas" unique_id=99949312]
+position = Vector2(32, 32)
+collision_layer = 0
+collision_mask = 870
+metadata/_edit_lock_ = true
+
+[node name="Area Collider" type="CollisionShape2D" parent="Spawn Areas/Down Right Spawn Area" unique_id=1706158157]
+shape = SubResource("RectangleShape2D_66y63")
+metadata/_edit_lock_ = true
+
+[node name="Down Spawn Area" type="Area2D" parent="Spawn Areas" unique_id=1491446779]
+position = Vector2(0, 32)
+collision_layer = 0
+collision_mask = 870
+metadata/_edit_lock_ = true
+
+[node name="Area Collider" type="CollisionShape2D" parent="Spawn Areas/Down Spawn Area" unique_id=1250104328]
+shape = SubResource("RectangleShape2D_66y63")
+metadata/_edit_lock_ = true
+
+[node name="Down Left Spawn Area" type="Area2D" parent="Spawn Areas" unique_id=863776042]
+position = Vector2(-32, 32)
+collision_layer = 0
+collision_mask = 870
+metadata/_edit_lock_ = true
+
+[node name="Area Collider" type="CollisionShape2D" parent="Spawn Areas/Down Left Spawn Area" unique_id=1418469628]
+shape = SubResource("RectangleShape2D_66y63")
+metadata/_edit_lock_ = true
+
+[node name="Left Spawn Area" type="Area2D" parent="Spawn Areas" unique_id=2065038967]
+position = Vector2(-32, 0)
+collision_layer = 0
+collision_mask = 870
+metadata/_edit_lock_ = true
+
+[node name="Area Collider" type="CollisionShape2D" parent="Spawn Areas/Left Spawn Area" unique_id=1632736694]
+shape = SubResource("RectangleShape2D_66y63")
+metadata/_edit_lock_ = true
+
+[node name="Up Left Spawn Area" type="Area2D" parent="Spawn Areas" unique_id=1880079862]
+position = Vector2(-32, -32)
+collision_layer = 0
+collision_mask = 870
+metadata/_edit_lock_ = true
+
+[node name="Area Collider" type="CollisionShape2D" parent="Spawn Areas/Up Left Spawn Area" unique_id=1707993506]
+shape = SubResource("RectangleShape2D_66y63")
+metadata/_edit_lock_ = true
+
+[node name="Spawn Timer" type="Timer" parent="." unique_id=1878627985]
+unique_name_in_owner = true
+wait_time = 2.5
+autostart = true
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="timeout" from="Spawn Timer" to="." method="_on_spawn_timer_timeout"]

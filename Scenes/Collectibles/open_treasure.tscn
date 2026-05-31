@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://drswqunc6xta2"]
+
+[ext_resource type="Texture2D" uid="uid://cdoyjmiauwm57" path="res://Assets/Collectibles/Open Treasure/open_treasure_1.png" id="1_78srt"]
+[ext_resource type="Texture2D" uid="uid://bvv0oa21psn3o" path="res://Assets/Collectibles/Open Treasure/open_treasure_2.png" id="2_ia4bm"]
+[ext_resource type="Texture2D" uid="uid://i6wpqgpqdcta" path="res://Assets/Collectibles/Open Treasure/open_treasure_3.png" id="3_ine4g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_465i4"]
+size = Vector2(12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sboj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_78srt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ia4bm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ine4g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Collect Area" type="Area2D" unique_id=1580077667 groups=["treasure"]]
+collision_layer = 64
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="Collect Collider" type="CollisionShape2D" parent="." unique_id=1863321703]
+shape = SubResource("RectangleShape2D_465i4")
+metadata/_edit_lock_ = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=492087046]
+sprite_frames = SubResource("SpriteFrames_sboj8")
+frame_progress = 0.5379439
+metadata/_edit_lock_ = true

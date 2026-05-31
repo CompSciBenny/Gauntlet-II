@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://richrle45q13"]
+
+[ext_resource type="Texture2D" uid="uid://dxuyib1dtsba7" path="res://Assets/Collectibles/potion.png" id="1_ee638"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ee638"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_465i4"]
+size = Vector2(8, 8)
+
+[node name="Potion" type="StaticBody2D" unique_id=1973702186]
+collision_layer = 32
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=361296249]
+texture = ExtResource("1_ee638")
+metadata/_edit_lock_ = true
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=768378392]
+shape = SubResource("RectangleShape2D_ee638")
+metadata/_edit_lock_ = true
+
+[node name="Collect Area" type="Area2D" parent="." unique_id=1580077667 groups=["potion"]]
+collision_layer = 32
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="Collect Collider" type="CollisionShape2D" parent="Collect Area" unique_id=1863321703]
+shape = SubResource("RectangleShape2D_465i4")
+metadata/_edit_lock_ = true

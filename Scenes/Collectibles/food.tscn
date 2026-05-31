@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cfjkcandpupem"]
+
+[ext_resource type="Texture2D" uid="uid://bv2megila8rpd" path="res://Assets/Collectibles/Food/food_2.png" id="1_5kygk"]
+[ext_resource type="Texture2D" uid="uid://bxclra5mii4r" path="res://Assets/Collectibles/Food/food_3.png" id="2_tdt55"]
+[ext_resource type="Texture2D" uid="uid://b0d7vapmnlcy8" path="res://Assets/Collectibles/Food/food_1.png" id="3_mc0go"]
+[ext_resource type="Texture2D" uid="uid://dsglmnquih0cp" path="res://Assets/Collectibles/Food/food_4.png" id="4_tdt55"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_465i4"]
+size = Vector2(12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sboj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5kygk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_tdt55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mc0go")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tdt55")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[node name="Food" type="Area2D" unique_id=1580077667 groups=["food"]]
+collision_layer = 64
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="Collect Collider" type="CollisionShape2D" parent="." unique_id=1863321703]
+shape = SubResource("RectangleShape2D_465i4")
+metadata/_edit_lock_ = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=492087046]
+sprite_frames = SubResource("SpriteFrames_sboj8")
+frame = 1
+frame_progress = 1.0
+metadata/_edit_lock_ = true

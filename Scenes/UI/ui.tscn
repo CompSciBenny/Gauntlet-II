@@ -1,0 +1,728 @@
+[gd_scene format=3 uid="uid://b3tljq4s5qc4q"]
+
+[ext_resource type="Script" uid="uid://cl3v111crxxbd" path="res://Scripts/UI/ui.gd" id="1_2246s"]
+[ext_resource type="Texture2D" uid="uid://d1twi7t5x1moh" path="res://Assets/UI/atari_st_ui.png" id="1_qdvrb"]
+[ext_resource type="Theme" uid="uid://c8eacxr42skll" path="res://Assets/Themes/arcade_theme.tres" id="2_nf4gj"]
+[ext_resource type="PackedScene" uid="uid://dwbo5dbgua3vt" path="res://Scenes/UI/player_banner.tscn" id="3_2246s"]
+[ext_resource type="AudioStream" uid="uid://eckwo4ec0r2m" path="res://Assets/SFX/Music/next_level_music.wav" id="5_q7pk6"]
+[ext_resource type="Script" uid="uid://bhvbs1dvgaubc" path="res://Scripts/UI/button.gd" id="6_mmixe"]
+[ext_resource type="Texture2D" uid="uid://kr2ftcf1kxhp" path="res://Assets/UI/arcade_cabinet.png" id="6_smcll"]
+[ext_resource type="Texture2D" uid="uid://t8tmtl8n2fyx" path="res://Assets/UI/lobby.png" id="7_nt8jn"]
+[ext_resource type="Texture2D" uid="uid://bde5cl82dpni8" path="res://Assets/UI/legend.png" id="7_ryf15"]
+[ext_resource type="Texture2D" uid="uid://bqorh8rvvujtk" path="res://Assets/UI/monsters.png" id="8_mmixe"]
+[ext_resource type="PackedScene" uid="uid://bxrbyeda65lkj" path="res://Scenes/UI/lobby_character_preview.tscn" id="8_pmm6b"]
+[ext_resource type="Texture2D" uid="uid://ch3dro013688b" path="res://Assets/UI/Class Button Textures/elf.png" id="9_vy225"]
+[ext_resource type="Texture2D" uid="uid://b6mojw1a1ctsk" path="res://Assets/UI/Class Button Textures/elf_selected.png" id="10_vqjbf"]
+[ext_resource type="Texture2D" uid="uid://bf4el7ddsqabl" path="res://Assets/UI/Class Button Textures/warrior.png" id="11_cqvjp"]
+[ext_resource type="Texture2D" uid="uid://dsiohpgr3812p" path="res://Assets/UI/Class Button Textures/warrior_selected.png" id="12_hfaco"]
+[ext_resource type="Texture2D" uid="uid://bb8jtdma3juny" path="res://Assets/UI/Class Button Textures/valkyrie.png" id="13_1eb8u"]
+[ext_resource type="Texture2D" uid="uid://c30drfp7gntn8" path="res://Assets/UI/Class Button Textures/valkyrie_selected.png" id="14_vhchw"]
+[ext_resource type="Texture2D" uid="uid://bivwe7n12k2qn" path="res://Assets/UI/Class Button Textures/wizard.png" id="15_jx4bj"]
+[ext_resource type="Texture2D" uid="uid://l2ubqlbpov7n" path="res://Assets/UI/Class Button Textures/wizard_selected.png" id="16_rdq6y"]
+[ext_resource type="Texture2D" uid="uid://bfipih37h4lol" path="res://Assets/UI/Color Button Textures/green.png" id="17_3h0f6"]
+[ext_resource type="Texture2D" uid="uid://dq780ocso66gr" path="res://Assets/UI/Color Button Textures/green_selected.png" id="18_unbrw"]
+[ext_resource type="Texture2D" uid="uid://jmva7c3wk6fi" path="res://Assets/UI/Color Button Textures/red.png" id="19_i1f3g"]
+[ext_resource type="Texture2D" uid="uid://brgxmhc304lnw" path="res://Assets/UI/Color Button Textures/red_selected.png" id="20_cnm7j"]
+[ext_resource type="Texture2D" uid="uid://bnv3s6axghsls" path="res://Assets/UI/Color Button Textures/blue.png" id="21_rhfi4"]
+[ext_resource type="Texture2D" uid="uid://bu6n6c0qr3so0" path="res://Assets/UI/Color Button Textures/blue_selected.png" id="22_busl5"]
+[ext_resource type="Texture2D" uid="uid://bm568e6seuurv" path="res://Assets/UI/Color Button Textures/yellow.png" id="23_57xf8"]
+[ext_resource type="Texture2D" uid="uid://cksuj13wf1ijj" path="res://Assets/UI/Color Button Textures/yellow_selected.png" id="24_rdojl"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_3h0f6"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_unbrw"]
+allow_unpress = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_3h0f6"]
+line_spacing = 0.0
+
+[node name="UI" type="Control" unique_id=247293930]
+layout_mode = 3
+anchor_top = 0.32000002
+anchor_right = 1.0
+anchor_bottom = 1.32
+offset_top = -128.00002
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_2246s")
+player_banner_scene = ExtResource("3_2246s")
+character_preview_scene = ExtResource("8_pmm6b")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Game UI" type="Control" parent="." unique_id=31787343]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Panel and Border" type="TextureRect" parent="Game UI" unique_id=373709795]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_qdvrb")
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Right Black Panel" type="Control" parent="Game UI" unique_id=1500201352]
+custom_minimum_size = Vector2(224, 400)
+layout_mode = 1
+anchor_left = 0.64987504
+anchor_right = 1.0
+anchor_bottom = 1.0000001
+offset_left = 0.079956055
+offset_bottom = -6.1035156e-05
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Level Label" type="Label" parent="Game UI/Right Black Panel" unique_id=744443196]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.235
+anchor_right = 1.0000001
+anchor_bottom = 0.2751
+offset_bottom = -0.040000916
+grow_horizontal = 2
+theme = ExtResource("2_nf4gj")
+text = "  level 7"
+uppercase = true
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Player Banners" type="VBoxContainer" parent="Game UI/Right Black Panel" unique_id=1030706346]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.285
+anchor_right = 0.99969226
+anchor_bottom = 0.9996
+offset_right = 0.06399536
+offset_bottom = 0.15999603
+mouse_filter = 2
+theme_override_constants/separation = 6
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Player Banner" parent="Game UI/Right Black Panel/Player Banners" unique_id=31150869 instance=ExtResource("3_2246s")]
+visible = false
+layout_mode = 2
+
+[node name="Player Banner2" parent="Game UI/Right Black Panel/Player Banners" unique_id=1207635856 instance=ExtResource("3_2246s")]
+visible = false
+layout_mode = 2
+
+[node name="Player Banner3" parent="Game UI/Right Black Panel/Player Banners" unique_id=1120832234 instance=ExtResource("3_2246s")]
+visible = false
+layout_mode = 2
+
+[node name="Player Banner4" parent="Game UI/Right Black Panel/Player Banners" unique_id=103211778 instance=ExtResource("3_2246s")]
+visible = false
+layout_mode = 2
+
+[node name="Level Transition" type="ColorRect" parent="Game UI" unique_id=478475643]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 416.0
+offset_bottom = 392.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Game UI/Level Transition" unique_id=205498033]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_right = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 32
+alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Level Transition Label" type="Label" parent="Game UI/Level Transition/VBoxContainer" unique_id=1871073062]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 16)
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "    LEVEL 1"
+vertical_alignment = 1
+autowrap_mode = 2
+uppercase = true
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Tip Label" type="Label" parent="Game UI/Level Transition/VBoxContainer" unique_id=696743394]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 16)
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "fight hand to hand by running into monsters"
+vertical_alignment = 1
+autowrap_mode = 2
+uppercase = true
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Title UI" type="TextureRect" parent="." unique_id=742412534]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Title" type="TextureRect" parent="Title UI" unique_id=1106556521]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_smcll")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Title Options Container" type="VBoxContainer" parent="Title UI/Title" unique_id=664838763]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.235
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_constants/separation = 16
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Host Button" type="Button" parent="Title UI/Title/Title Options Container" unique_id=1052629653]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  HOST"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Join Button" type="Button" parent="Title UI/Title/Title Options Container" unique_id=1330657490]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  JOIN"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Controls Button" type="Button" parent="Title UI/Title/Title Options Container" unique_id=961301721]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  CONTROLS"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Legend Button" type="Button" parent="Title UI/Title/Title Options Container" unique_id=1441878270]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  LEGEND"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Monsters Button" type="Button" parent="Title UI/Title/Title Options Container" unique_id=1249989911]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  MONSTERS"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Join" type="TextureRect" parent="Title UI" unique_id=2042897725]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_smcll")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Join Options Container" type="VBoxContainer" parent="Title UI/Join" unique_id=2059425174]
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.235
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_constants/separation = 16
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Back Button" type="Button" parent="Title UI/Join/Join Options Container" unique_id=1806420935]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  BACK"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="IP Address Edit" type="LineEdit" parent="Title UI/Join/Join Options Container" unique_id=299012598]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "127.0.0.1"
+placeholder_text = "type IP here"
+
+[node name="Join Host Button" type="Button" parent="Title UI/Join/Join Options Container" unique_id=481309369]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  JOIN HOST"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Error Label" type="Label" parent="Title UI/Join/Join Options Container" unique_id=1628645202]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+theme_override_colors/font_color = Color(0.6666667, 0.10980392, 0, 1)
+text = "  connecting"
+uppercase = true
+
+[node name="Lobby" type="TextureRect" parent="Title UI" unique_id=873013759]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_nt8jn")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Character Creation Panel" type="Control" parent="Title UI/Lobby" unique_id=1781339240]
+layout_mode = 1
+anchor_left = 0.05
+anchor_top = 0.42000005
+anchor_right = 0.65000004
+anchor_bottom = 0.98
+offset_top = -1.5258789e-05
+offset_right = -3.0517578e-05
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Your Party Label" type="Label" parent="Title UI/Lobby/Character Creation Panel" unique_id=121228254]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.10728573
+anchor_right = 0.45800003
+anchor_bottom = 0.17842858
+offset_top = -0.032011032
+offset_right = 0.12799072
+offset_bottom = 0.03199005
+theme = ExtResource("2_nf4gj")
+text = "your party"
+uppercase = true
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Character Previews" type="HBoxContainer" parent="Title UI/Lobby/Character Creation Panel" unique_id=2005726413]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.035285745
+anchor_right = 1.0
+anchor_bottom = 0.24957141
+offset_top = 0.09598732
+offset_bottom = 0.09599686
+grow_horizontal = 2
+theme_override_constants/separation = 0
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Lobby Character Preview" parent="Title UI/Lobby/Character Creation Panel/Character Previews" unique_id=821262113 instance=ExtResource("8_pmm6b")]
+layout_mode = 2
+
+[node name="Lobby Character Preview2" parent="Title UI/Lobby/Character Creation Panel/Character Previews" unique_id=750897923 instance=ExtResource("8_pmm6b")]
+layout_mode = 2
+
+[node name="Lobby Character Preview3" parent="Title UI/Lobby/Character Creation Panel/Character Previews" unique_id=1253968286 instance=ExtResource("8_pmm6b")]
+layout_mode = 2
+
+[node name="Lobby Character Preview4" parent="Title UI/Lobby/Character Creation Panel/Character Previews" unique_id=929163935 instance=ExtResource("8_pmm6b")]
+layout_mode = 2
+
+[node name="Select Hero Label" type="Label" parent="Title UI/Lobby/Character Creation Panel" unique_id=1887451941]
+layout_mode = 0
+offset_top = 88.0
+offset_right = 176.0
+offset_bottom = 104.0
+theme = ExtResource("2_nf4gj")
+text = "select hero"
+uppercase = true
+metadata/_edit_lock_ = true
+
+[node name="Class Buttons" type="HBoxContainer" parent="Title UI/Lobby/Character Creation Panel" unique_id=1345252832]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.54200006
+anchor_top = 0.26785722
+anchor_right = 1.0
+anchor_bottom = 0.41071436
+offset_left = -0.12802124
+offset_top = 11.999985
+offset_bottom = 11.999985
+grow_horizontal = 2
+theme_override_constants/separation = 16
+metadata/_edit_lock_ = true
+
+[node name="Elf" type="TextureButton" parent="Title UI/Lobby/Character Creation Panel/Class Buttons" unique_id=1030868362]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_3h0f6")
+texture_normal = ExtResource("9_vy225")
+texture_pressed = ExtResource("10_vqjbf")
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Warrior" type="TextureButton" parent="Title UI/Lobby/Character Creation Panel/Class Buttons" unique_id=1296553725]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_3h0f6")
+texture_normal = ExtResource("11_cqvjp")
+texture_pressed = ExtResource("12_hfaco")
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Valkyrie" type="TextureButton" parent="Title UI/Lobby/Character Creation Panel/Class Buttons" unique_id=1688869937]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_3h0f6")
+texture_normal = ExtResource("13_1eb8u")
+texture_pressed = ExtResource("14_vhchw")
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Wizard" type="TextureButton" parent="Title UI/Lobby/Character Creation Panel/Class Buttons" unique_id=1709024458]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_3h0f6")
+texture_normal = ExtResource("15_jx4bj")
+texture_pressed = ExtResource("16_rdq6y")
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Select Color Label" type="Label" parent="Title UI/Lobby/Character Creation Panel" unique_id=1789630017]
+layout_mode = 0
+offset_top = 120.0
+offset_right = 192.0
+offset_bottom = 136.0
+theme = ExtResource("2_nf4gj")
+text = "select color"
+uppercase = true
+metadata/_edit_lock_ = true
+
+[node name="Color Buttons" type="HBoxContainer" parent="Title UI/Lobby/Character Creation Panel" unique_id=1813681185]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.54200006
+anchor_top = 0.48214293
+anchor_right = 1.0
+anchor_bottom = 0.6251427
+offset_left = -0.12802124
+offset_top = -4.0000305
+offset_bottom = -4.0319824
+grow_horizontal = 2
+theme_override_constants/separation = 16
+metadata/_edit_lock_ = true
+
+[node name="Green" type="TextureButton" parent="Title UI/Lobby/Character Creation Panel/Color Buttons" unique_id=1684852763]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_unbrw")
+texture_normal = ExtResource("17_3h0f6")
+texture_pressed = ExtResource("18_unbrw")
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Red" type="TextureButton" parent="Title UI/Lobby/Character Creation Panel/Color Buttons" unique_id=620295884]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_unbrw")
+texture_normal = ExtResource("19_i1f3g")
+texture_pressed = ExtResource("20_cnm7j")
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Blue" type="TextureButton" parent="Title UI/Lobby/Character Creation Panel/Color Buttons" unique_id=920556284]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_unbrw")
+texture_normal = ExtResource("21_rhfi4")
+texture_pressed = ExtResource("22_busl5")
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Yellow" type="TextureButton" parent="Title UI/Lobby/Character Creation Panel/Color Buttons" unique_id=782285509]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_unbrw")
+texture_normal = ExtResource("23_57xf8")
+texture_pressed = ExtResource("24_rdojl")
+stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="Start Game Button" type="Button" parent="Title UI/Lobby/Character Creation Panel" unique_id=1667085523]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.679
+anchor_right = 0.5
+anchor_bottom = 0.75000006
+offset_top = -0.0960083
+offset_right = -80.0
+offset_bottom = -1.5258789e-05
+theme = ExtResource("2_nf4gj")
+text = "  START GAME"
+alignment = 0
+script = ExtResource("6_mmixe")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Waiting For Host Label" type="Label" parent="Title UI/Lobby/Character Creation Panel" unique_id=1727064274]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.6787143
+anchor_right = 0.7913334
+anchor_bottom = 0.7498571
+offset_top = -0.032003403
+offset_right = 0.12799072
+offset_bottom = 0.03199768
+theme = ExtResource("2_nf4gj")
+text = "waiting for host..."
+uppercase = true
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Leave Lobby Button" type="Button" parent="Title UI/Lobby/Character Creation Panel" unique_id=925292794]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.82100004
+anchor_right = 0.54200006
+anchor_bottom = 0.89300007
+offset_top = 0.09599304
+offset_right = -0.12802124
+offset_bottom = -0.03201294
+theme = ExtResource("2_nf4gj")
+text = "  LEAVE LOBBY"
+alignment = 0
+script = ExtResource("6_mmixe")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Controls" type="TextureRect" parent="Title UI" unique_id=1090829898]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_ryf15")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Controls Options Container" type="VBoxContainer" parent="Title UI/Controls" unique_id=1515195721]
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.235
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_constants/separation = 16
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Back Button" type="Button" parent="Title UI/Controls/Controls Options Container" unique_id=1823385036]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  BACK"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Legend" type="TextureRect" parent="Title UI" unique_id=959044640]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_ryf15")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Legend Options Container" type="VBoxContainer" parent="Title UI/Legend" unique_id=1153934259]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.235
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_constants/separation = 16
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Back Button" type="Button" parent="Title UI/Legend/Legend Options Container" unique_id=1100050881]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  BACK"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Monsters" type="TextureRect" parent="Title UI" unique_id=1085334706]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_mmixe")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Monsters Options Container" type="VBoxContainer" parent="Title UI/Monsters" unique_id=1639988211]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 0.235
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_constants/separation = 16
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Back Button" type="Button" parent="Title UI/Monsters/Monsters Options Container" unique_id=651181645]
+layout_mode = 2
+theme = ExtResource("2_nf4gj")
+text = "  BACK"
+alignment = 0
+script = ExtResource("6_mmixe")
+
+[node name="Status Label" type="Label" parent="Title UI" unique_id=1466919349]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 384.0
+offset_right = 592.0
+offset_bottom = 400.0
+theme = ExtResource("2_nf4gj")
+theme_override_colors/font_color = Color(0.6666667, 0.10980392, 0, 1)
+text = "cannot start! players use same color!"
+uppercase = true
+metadata/_edit_lock_ = true
+
+[node name="SFX" type="Node" parent="." unique_id=1458595430]
+
+[node name="Level Transition SFX" type="AudioStreamPlayer" parent="SFX" unique_id=341935935]
+unique_name_in_owner = true
+stream = ExtResource("5_q7pk6")
+volume_db = -8.0
+
+[node name="Connection Timeout Timer" type="Timer" parent="." unique_id=404306349]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
+
+[node name="Label" type="Label" parent="." unique_id=688906647]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_nf4gj")
+text = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+label_settings = SubResource("LabelSettings_3h0f6")
+autowrap_mode = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Title UI/Title/Title Options Container/Host Button" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Title UI/Title/Title Options Container/Join Button" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="Title UI/Title/Title Options Container/Controls Button" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="Title UI/Title/Title Options Container/Legend Button" to="." method="_on_legend_button_pressed"]
+[connection signal="pressed" from="Title UI/Title/Title Options Container/Monsters Button" to="." method="_on_monsters_button_pressed"]
+[connection signal="pressed" from="Title UI/Join/Join Options Container/Back Button" to="." method="_return_to_main_menu"]
+[connection signal="pressed" from="Title UI/Join/Join Options Container/Join Host Button" to="." method="_attempt_to_join_host"]
+[connection signal="pressed" from="Title UI/Lobby/Character Creation Panel/Start Game Button" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="Title UI/Lobby/Character Creation Panel/Leave Lobby Button" to="." method="_return_to_main_menu"]
+[connection signal="pressed" from="Title UI/Controls/Controls Options Container/Back Button" to="." method="_return_to_main_menu"]
+[connection signal="pressed" from="Title UI/Legend/Legend Options Container/Back Button" to="." method="_return_to_main_menu"]
+[connection signal="pressed" from="Title UI/Monsters/Monsters Options Container/Back Button" to="." method="_return_to_main_menu"]
+[connection signal="finished" from="SFX/Level Transition SFX" to="." method="_on_level_transition_sfx_finished"]
+[connection signal="timeout" from="Connection Timeout Timer" to="." method="_on_connection_timeout_timer_timeout"]

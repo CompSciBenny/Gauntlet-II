@@ -1,0 +1,45 @@
+[gd_resource type="Theme" format=3 uid="uid://c8eacxr42skll"]
+
+[ext_resource type="FontFile" uid="uid://crnrppi4hh65l" path="res://Assets/Fonts/arcade_font.ttf" id="1_nsg1e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmffm"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsg1e"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1i8rq"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjnc7"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umcwl"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mpwkj"]
+bg_color = Color(0, 0, 0, 1)
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0.6627451, 0.6627451, 0.6627451, 1)
+Button/fonts/font = ExtResource("1_nsg1e")
+Button/styles/disabled = SubResource("StyleBoxFlat_lmffm")
+Button/styles/focus = null
+Button/styles/hover = SubResource("StyleBoxFlat_nsg1e")
+Button/styles/normal = SubResource("StyleBoxFlat_1i8rq")
+Button/styles/pressed = SubResource("StyleBoxFlat_rjnc7")
+Label/colors/font_color = Color(0.6627451, 0.6627451, 0.6627451, 1)
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_nsg1e")
+Label/styles/normal = SubResource("StyleBoxFlat_umcwl")
+LineEdit/colors/caret_color = Color(0.6627451, 0.6627451, 0.6627451, 1)
+LineEdit/colors/font_color = Color(0.6627451, 0.6627451, 0.6627451, 1)
+LineEdit/colors/font_placeholder_color = Color(0.44313726, 0.44313726, 0.44313726, 1)
+LineEdit/colors/selection_color = Color(0.6627451, 0.6627451, 0.6627451, 1)
+LineEdit/constants/caret_width = 14
+LineEdit/fonts/font = ExtResource("1_nsg1e")
+LineEdit/styles/focus = null
+LineEdit/styles/normal = SubResource("StyleBoxFlat_mpwkj")

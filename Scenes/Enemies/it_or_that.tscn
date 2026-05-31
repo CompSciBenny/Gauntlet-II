@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://cn5ktgcyulcs2"]
+
+[ext_resource type="Script" uid="uid://cr4lide2iatmm" path="res://Scripts/enemy.gd" id="1_02jrx"]
+[ext_resource type="Texture2D" uid="uid://dbedlhpt3w46t" path="res://Assets/Sprite Sheets/GauntletSamples.png" id="2_r2oxy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xqvrf"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02jrx"]
+atlas = ExtResource("2_r2oxy")
+region = Rect2(651, 59, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2oxy"]
+atlas = ExtResource("2_r2oxy")
+region = Rect2(669, 59, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fw33"]
+atlas = ExtResource("2_r2oxy")
+region = Rect2(687, 59, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2nd4"]
+atlas = ExtResource("2_r2oxy")
+region = Rect2(705, 59, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xi38l"]
+atlas = ExtResource("2_r2oxy")
+region = Rect2(723, 59, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swhyx"]
+atlas = ExtResource("2_r2oxy")
+region = Rect2(741, 59, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7b2k"]
+atlas = ExtResource("2_r2oxy")
+region = Rect2(759, 59, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3pqv"]
+atlas = ExtResource("2_r2oxy")
+region = Rect2(777, 59, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ni0v0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02jrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2oxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fw33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2nd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xi38l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swhyx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7b2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3pqv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xqvrf"]
+properties/0/path = NodePath("Sprite:animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprite:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="It Or That" type="CharacterBody2D" unique_id=610540813]
+collision_layer = 4
+collision_mask = 806
+platform_floor_layers = 4278190080
+script = ExtResource("1_02jrx")
+health = 999
+speed = 100.0
+metadata/_edit_lock_ = true
+
+[node name="Hurtbox Area" type="Area2D" parent="." unique_id=2103909651]
+collision_layer = 4
+collision_mask = 8
+
+[node name="Hurtbox Collider" type="CollisionShape2D" parent="Hurtbox Area" unique_id=1273802243]
+shape = SubResource("CircleShape2D_xqvrf")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1668151729]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ni0v0")
+frame_progress = 0.9137756
+metadata/_edit_lock_ = true
+
+[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1316355705]
+unique_name_in_owner = true
+path_desired_distance = 8.0
+path_max_distance = 16.0
+path_postprocessing = 1
+radius = 16.0
+neighbor_distance = 50.0
+max_neighbors = 8
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0, 1, 1)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2079375016]
+replication_config = SubResource("SceneReplicationConfig_xqvrf")
