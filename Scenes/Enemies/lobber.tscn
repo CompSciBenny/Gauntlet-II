@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d2wqnl7en4n71" path="res://Scenes/rock.tscn" id="2_ojboy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6d2h5"]
-radius = 16.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xqvrf"]
 radius = 16.0
@@ -256,7 +256,7 @@ properties/2/path = NodePath(".:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Lobber" type="CharacterBody2D" unique_id=610540813]
+[node name="Lobber" type="CharacterBody2D" unique_id=610540813 node_paths=PackedStringArray("hurtbox_area")]
 collision_layer = 4
 collision_mask = 806
 platform_floor_layers = 4278190080
@@ -264,10 +264,11 @@ script = ExtResource("1_4p1k2")
 attack_range = 224
 retreat_distance = 160
 rock_scene = ExtResource("2_ojboy")
-health = 999
-damage = 1
+health = 3
+damage = 10
 attack_rate = 1.0
 speed = 100.0
+hurtbox_area = NodePath("Hurtbox Area")
 metadata/_edit_lock_ = true
 
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=338227810]
@@ -305,5 +306,3 @@ replication_config = SubResource("SceneReplicationConfig_xqvrf")
 [node name="Attack Timer" type="Timer" parent="." unique_id=1959307815]
 unique_name_in_owner = true
 one_shot = true
-
-[connection signal="timeout" from="Attack Timer" to="." method="_on_attack_timer_timeout"]

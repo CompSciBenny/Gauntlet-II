@@ -36,6 +36,7 @@ enum State {
 	STUNNED,
 }
 
+var in_lobby : bool = true
 signal exited_level
 
 func _ready() -> void:
@@ -209,6 +210,7 @@ func enter_level(spawn_position : Vector2) -> void:
 	# Centers the camera back on the player
 	%Camera.position = Vector2.ZERO
 	
+	in_lobby = false
 	set_colliders(true)
 	state = State.IDLE
 func set_colliders(enabled : bool) -> void:
@@ -378,7 +380,7 @@ func get_color_and_class() -> String:
 
 # TIMER TIMEOUTS
 func _on_health_timer_timeout() -> void:
-	if (not is_multiplayer_authority() or state == State.EXITING): return
+	if (not is_multiplayer_authority() or state == State.EXITING or in_lobby): return
 	_take_damage(1)
 func _on_invis_timer_timeout() -> void:
 	%Sprite.visible = not %Sprite.visible

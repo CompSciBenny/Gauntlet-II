@@ -11,6 +11,7 @@ func _process(delta: float) -> void:
 	pass
 
 func play_animation(anim : String) -> void:
+	if (%Sprite.animation == anim and %Sprite.is_playing()): return
 	%Sprite.play(anim)
 
 func toggle_identifier_label(toggled_on : bool) -> void:

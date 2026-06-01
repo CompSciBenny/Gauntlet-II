@@ -33,4 +33,4 @@ func _on_sprite_animation_finished() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	var target : Player = area.owner
-	target.take_damage(damage)
+	target._take_damage(damage)

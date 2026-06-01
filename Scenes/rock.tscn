@@ -108,6 +108,7 @@ script = ExtResource("1_vd8au")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1541562765]
 unique_name_in_owner = true
+z_index = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_av12p")
 animation = &"Rock"

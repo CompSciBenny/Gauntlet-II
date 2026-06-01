@@ -491,9 +491,7 @@ unique_name_in_owner = true
 position = Vector2(32, 16)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_n5dd3")
-animation = &"Red Warrior"
-frame = 2
-frame_progress = 0.8897661
+animation = &"Yellow Wizard"
 metadata/_edit_lock_ = true
 
 [node name="Identifier Label" type="Label" parent="." unique_id=490051823]

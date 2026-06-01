@@ -31,6 +31,7 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	
+	%"Status Label".text = ""
 	%"Level Label".hide()
 	%"Level Transition".hide()
 	
@@ -230,6 +231,12 @@ func _attempt_to_join_host() -> void:
 		%"Join Host Button".disabled = true
 
 func _on_start_game_button_pressed() -> void:
+	for p1 in Global.main.players:
+		for p2 in Global.main.players:
+			if (p1 == p2): continue
+			if (p1.player_color == p2.player_color):
+				%"Status Label".text = "cant start! players cannot share color!"
+				return
 	activate_level_transition.rpc(Global.main.current_level_num)
 
 func _on_connected_to_server() -> void:

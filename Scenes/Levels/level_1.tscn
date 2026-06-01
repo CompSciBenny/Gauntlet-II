@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://drswqunc6xta2" path="res://Scenes/Collectibles/open_treasure.tscn" id="5_7r2dd"]
 [ext_resource type="PackedScene" uid="uid://cfjkcandpupem" path="res://Scenes/Collectibles/food.tscn" id="6_k2mw1"]
 [ext_resource type="PackedScene" uid="uid://dk4b2gguuh8ye" path="res://Scenes/Collectibles/amulet.tscn" id="7_tjl6l"]
-[ext_resource type="PackedScene" uid="uid://d0r2qe2tjre7s" path="res://Scenes/Enemies/acid_puddle.tscn" id="10_u5ghp"]
+[ext_resource type="PackedScene" uid="uid://co022b5xklptj" path="res://Scenes/Enemies/lobber.tscn" id="10_u5ghp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3628d"]
 texture = ExtResource("2_u5ghp")
@@ -93,5 +93,5 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 metadata/_edit_lock_ = true
 
-[node name="Acid Puddle" parent="Enemy Container" unique_id=610540813 instance=ExtResource("10_u5ghp")]
-position = Vector2(112, 240)
+[node name="Lobber" parent="Enemy Container" unique_id=610540813 instance=ExtResource("10_u5ghp")]
+position = Vector2(240, 240)

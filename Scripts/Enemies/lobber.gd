@@ -13,9 +13,6 @@ func _process(delta: float) -> void:
 	
 	handle_state()
 	handle_behavior()
-	
-	print(State.keys()[state])
-	print(can_attack)
 
 func handle_state() -> void:
 	if (global_position.distance_to(target.global_position) > attack_range):
@@ -35,7 +32,7 @@ func handle_behavior() -> void:
 		move_dir = Vector2.ZERO
 
 func attack_player() -> void:
-	if (not can_attack): return
+	if (not %"Attack Timer".is_stopped()): return
 	
 	move_dir = Vector2.ZERO
 	
@@ -53,9 +50,4 @@ func attack_player() -> void:
 		new_rock.impact_position = target.global_position + (target.velocity * new_rock.time_til_impact)
 		Global.main.current_level.add_child(new_rock)
 	
-	can_attack = false
 	%"Attack Timer".start(1. / attack_rate)
-
-func _on_attack_timer_timeout() -> void:
-	can_attack = true
-	
