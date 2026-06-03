@@ -1,0 +1,38 @@
+[gd_resource type="TileSet" format=3 uid="uid://67k0hsjakp5d"]
+
+[ext_resource type="Texture2D" uid="uid://c3utbvifme7to" path="res://Assets/Tileset Assets/floor_trap_tiles.png" id="1_rillb"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jv26f"]
+texture = ExtResource("1_rillb")
+0:1/animation_columns = 4
+0:1/animation_speed = 8.0
+0:1/animation_frame_0/duration = 1.0
+0:1/animation_frame_1/duration = 1.0
+0:1/animation_frame_2/duration = 1.0
+0:1/animation_frame_3/duration = 1.0
+0:1/0 = 0
+0:1/0/custom_data_0 = "trap"
+0:2/animation_columns = 8
+0:2/animation_frame_0/duration = 2.0
+0:2/animation_frame_1/duration = 0.25
+0:2/animation_frame_2/duration = 0.75
+0:2/animation_frame_3/duration = 0.2
+0:2/animation_frame_4/duration = 0.2
+0:2/animation_frame_5/duration = 0.2
+0:2/animation_frame_6/duration = 0.2
+0:2/animation_frame_7/duration = 0.2
+0:2/0 = 0
+0:2/0/custom_data_0 = "force_field"
+0:0/animation_columns = 4
+0:0/animation_speed = 8.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/0 = 0
+0:0/0/custom_data_0 = "stun"
+
+[resource]
+custom_data_layer_0/name = "trap_type"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_jv26f")

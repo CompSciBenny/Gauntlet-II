@@ -2,40 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bwfi0ihmsgsip" path="res://Scripts/level.gd" id="1_6grq2"]
 [ext_resource type="TileSet" uid="uid://gha4eawr5glr" path="res://Assets/Tilesets/ground_tile_set.tres" id="2_vwhew"]
-[ext_resource type="Texture2D" uid="uid://c3utbvifme7to" path="res://Assets/Tileset Assets/floor_trap_tiles.png" id="3_i4hbv"]
+[ext_resource type="TileSet" uid="uid://67k0hsjakp5d" path="res://Assets/Tilesets/trap_tile_set.tres" id="3_i4hbv"]
 [ext_resource type="TileSet" uid="uid://c551iv37oxbr7" path="res://Assets/Tilesets/solid_tile_set.tres" id="3_jqrsn"]
 [ext_resource type="Texture2D" uid="uid://lcxjeqgey0a7" path="res://Assets/Tileset Assets/wall_shadow_tiles.png" id="3_t74h0"]
+[ext_resource type="Script" uid="uid://dx278jco5ug3t" path="res://Scripts/force_field_handler.gd" id="4_h0uxt"]
 [ext_resource type="Script" uid="uid://ctawe3jtgl4n4" path="res://Scripts/wall_shadow_handler.gd" id="4_i4hbv"]
 [ext_resource type="Texture2D" uid="uid://chies3j2mnp25" path="res://Assets/Tileset Assets/trap_marker_tiles.png" id="7_h0uxt"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_keyqw"]
-texture = ExtResource("3_i4hbv")
-0:1/animation_columns = 4
-0:1/animation_speed = 8.0
-0:1/animation_frame_0/duration = 1.0
-0:1/animation_frame_1/duration = 1.0
-0:1/animation_frame_2/duration = 1.0
-0:1/animation_frame_3/duration = 1.0
-0:1/0 = 0
-0:1/0/custom_data_0 = "trap"
-0:2/0 = 0
-0:2/0/custom_data_0 = "field"
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-0:0/animation_columns = 4
-0:0/animation_speed = 8.0
-0:0/animation_frame_0/duration = 1.0
-0:0/animation_frame_1/duration = 1.0
-0:0/animation_frame_2/duration = 1.0
-0:0/animation_frame_3/duration = 1.0
-0:0/0 = 0
-0:0/0/custom_data_0 = "stun"
-
-[sub_resource type="TileSet" id="TileSet_gsxik"]
-custom_data_layer_0/name = "trap_type"
-custom_data_layer_0/type = 4
-sources/0 = SubResource("TileSetAtlasSource_keyqw")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h0uxt"]
 texture = ExtResource("3_t74h0")
@@ -92,7 +64,8 @@ metadata/_edit_lock_ = true
 [node name="Trap Layer" type="TileMapLayer" parent="." unique_id=1161892534]
 unique_name_in_owner = true
 scale = Vector2(2, 2)
-tile_set = SubResource("TileSet_gsxik")
+tile_set = ExtResource("3_i4hbv")
+script = ExtResource("4_h0uxt")
 metadata/_edit_lock_ = true
 
 [node name="Shadow Layer" type="TileMapLayer" parent="." unique_id=1577523920]
