@@ -7,6 +7,7 @@ class_name Demon extends Enemy
 @export var fireball_scene : PackedScene
 
 func _ready() -> void:
+	super._ready()
 	state = State.RETREATING
 
 func _process(delta: float) -> void:
@@ -22,7 +23,7 @@ func _process(delta: float) -> void:
 func handle_state() -> void:
 	if (global_position.distance_to(target.global_position) > ranged_attack_range):
 		state = State.CHASING
-	elif (global_position.distance_to(target.global_position) > melee_attack_range):
+	elif (global_position.distance_to(target.global_position) > melee_attack_range and can_see_target()):
 		state = State.ATTACKING
 	elif (global_position.distance_to(target.global_position) <= melee_attack_range):
 		if (is_touching_target()): state = State.ATTACKING
@@ -48,7 +49,7 @@ func range_attack_player() -> void:
 	move_dir = Vector2.ZERO
 	if (not attack_cooldown_timer.is_stopped()): return
 	for ray_cast : RayCast2D in %"Ray Casts".get_children():
-		if (not ray_cast.is_colliding()): continue
+		if (not ray_cast.is_colliding() or not ray_cast.get_collider().owner.is_in_group("player")): continue
 		var player : Player = ray_cast.get_collider().owner
 		if (player == target and global_position.distance_to(ray_cast.get_collision_point()) <= ranged_attack_range):
 			shoot_fireball(ray_cast.target_position.normalized())

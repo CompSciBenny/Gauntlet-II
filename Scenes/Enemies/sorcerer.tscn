@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://c3s4xa72rtm5y"]
 
-[ext_resource type="Script" uid="uid://cr4lide2iatmm" path="res://Scripts/enemy.gd" id="1_whr6f"]
+[ext_resource type="Script" uid="uid://ojgtrkf7qov1" path="res://Scripts/Enemies/sorcerer.gd" id="1_whr6f"]
+[ext_resource type="PackedScene" uid="uid://behefgkwq0ui1" path="res://Scenes/fireball.tscn" id="2_j1mxo"]
 [ext_resource type="Texture2D" uid="uid://dbedlhpt3w46t" path="res://Assets/Sprite Sheets/GauntletSamples.png" id="2_pws5t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6d2h5"]
-radius = 16.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xqvrf"]
 radius = 16.0
@@ -255,14 +256,22 @@ properties/2/path = NodePath(".:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Sorcerer" type="CharacterBody2D" unique_id=610540813]
+[node name="Sorcerer" type="CharacterBody2D" unique_id=610540813 node_paths=PackedStringArray("attack_cooldown_timer", "hurtbox_area")]
 collision_layer = 4
-collision_mask = 806
-platform_floor_layers = 4278190080
+collision_mask = 1830
+platform_floor_layers = 0
 script = ExtResource("1_whr6f")
-health = 4
-damage = 6
+min_invis_time = 1.0
+max_invis_time = 3.0
+shot_speed = 600.0
+attack_range = 224
+attack_cooldown_timer = NodePath("Attack Cooldown Timer")
+fireball_scene = ExtResource("2_j1mxo")
+health = 6
+damage = 16
+attack_rate = 1.2
 speed = 60.0
+hurtbox_area = NodePath("Hurtbox Area")
 metadata/_edit_lock_ = true
 
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=338227810]
@@ -284,17 +293,79 @@ animation = &"Up Right"
 frame_progress = 0.3459751
 metadata/_edit_lock_ = true
 
-[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1316355705]
+[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1736198143]
 unique_name_in_owner = true
 path_desired_distance = 8.0
-path_max_distance = 16.0
+path_max_distance = 10.0
 path_postprocessing = 1
+avoidance_enabled = true
 radius = 16.0
-neighbor_distance = 50.0
-max_neighbors = 8
+neighbor_distance = 20.0
+max_neighbors = 24
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2079375016]
 replication_config = SubResource("SceneReplicationConfig_xqvrf")
+
+[node name="Ray Casts" type="Node2D" parent="." unique_id=2057966444]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
+
+[node name="Up" type="RayCast2D" parent="Ray Casts" unique_id=427315458]
+target_position = Vector2(0, -320)
+collision_mask = 1794
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="Up Right" type="RayCast2D" parent="Ray Casts" unique_id=1172312958]
+target_position = Vector2(226, -226)
+collision_mask = 1794
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="Right" type="RayCast2D" parent="Ray Casts" unique_id=1108640197]
+target_position = Vector2(320, 0)
+collision_mask = 1794
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="Down Right" type="RayCast2D" parent="Ray Casts" unique_id=245399897]
+target_position = Vector2(226, 226)
+collision_mask = 1794
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="Down" type="RayCast2D" parent="Ray Casts" unique_id=2064712311]
+target_position = Vector2(0, 320)
+collision_mask = 1794
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="Down Left" type="RayCast2D" parent="Ray Casts" unique_id=940219575]
+target_position = Vector2(-226, 226)
+collision_mask = 1794
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="Left" type="RayCast2D" parent="Ray Casts" unique_id=2013299035]
+target_position = Vector2(-320, 0)
+collision_mask = 1794
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="Up Left" type="RayCast2D" parent="Ray Casts" unique_id=228603125]
+target_position = Vector2(-226, -226)
+collision_mask = 1794
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="Attack Cooldown Timer" type="Timer" parent="." unique_id=242509782]
+one_shot = true
+
+[node name="Target Ray Cast" type="RayCast2D" parent="." unique_id=181878676]
+unique_name_in_owner = true
+target_position = Vector2(640, 0)
+collision_mask = 1794
+collide_with_areas = true

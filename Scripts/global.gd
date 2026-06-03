@@ -60,8 +60,8 @@ func get_eight_neighboring_cells(cell : Vector2i, level : Level) -> Array[Vector
 	var neighboring_cells : Array[Vector2i] = []
 	for x in range(-1, 2):
 		for y in range(-1, 2):
-			if ((x == 0 and y == 0) or level.ground_layer.get_cell_source_id(Vector2i(x, y)) == -1): continue
-			neighboring_cells.append(Vector2i(x, y))
+			if ((x == 0 and y == 0) or level.ground_layer.get_cell_source_id(cell + Vector2i(x, y)) == -1): continue
+			neighboring_cells.append(cell + Vector2i(x, y))
 	return neighboring_cells
 
 func get_direction_name(direction : Vector2) -> String:

@@ -5,6 +5,7 @@ class_name Lobber extends Enemy
 @export var rock_scene : PackedScene
 
 func _ready() -> void:
+	super._ready()
 	state = State.IDLE
 
 func _process(delta: float) -> void:

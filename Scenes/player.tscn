@@ -4509,10 +4509,10 @@ properties/20/path = NodePath(".:amulet_durations")
 properties/20/spawn = true
 properties/20/replication_mode = 2
 
-[node name="Player" type="CharacterBody2D" unique_id=1064484638]
+[node name="Player" type="CharacterBody2D" unique_id=1064484638 groups=["player"]]
 collision_layer = 2
 collision_mask = 1814
-platform_floor_layers = 4278190080
+platform_floor_layers = 0
 script = ExtResource("1_rqqdk")
 post_shot_time = 0.15
 projectile_scene = ExtResource("2_s00iy")

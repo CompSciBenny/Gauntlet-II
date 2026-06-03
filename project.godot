@@ -44,6 +44,7 @@ level="Objects that are levels"
 item/collectible="Objects that can be collected"
 collectible="Objects that can be collected"
 amulet="Object that is an amulet"
+player="Objects that define a player."
 
 [input]
 

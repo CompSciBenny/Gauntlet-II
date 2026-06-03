@@ -20,28 +20,30 @@ class_name EnemySpawner extends StaticBody2D
 @export var robber_scene : PackedScene
 @export var mugger_scene : PackedScene
 
+const SPAWN_ACTIVATION_RANGE : int = 256
+
 func _ready() -> void:
 	update_sprite()
 	%"Spawn Timer".wait_time = spawn_delay
+	for ray_cast : RayCast2D in %"Spawn Ray Casts".get_children():
+		ray_cast.add_exception(self)
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint(): update_sprite()
 
 func get_random_available_spawn_position() -> Vector2:
-	var available_spawn_areas : Array[Area2D] = []
-	for area : Area2D in %"Spawn Areas".get_children():
-		if area.get_overlapping_bodies().size() <= 0:
-			available_spawn_areas.append(area)
-	if (available_spawn_areas.size() > 0):
-		var spawn_area : Area2D = available_spawn_areas.pick_random()
-		return spawn_area.global_position
+	var available_spawn_positions : Array[Vector2] = []
+	for ray_cast : RayCast2D in %"Spawn Ray Casts".get_children():
+		if (ray_cast.is_colliding()): continue
+		available_spawn_positions.append(global_position + (ray_cast.target_position * (2./3.)))
+	if (available_spawn_positions.size() > 0):
+		return available_spawn_positions.pick_random()
 	return Vector2.ZERO
 
 func spawn_enemy(spawn_position : Vector2) -> void:
 	if (spawn_position == Vector2.ZERO): return
 	var new_enemy : Enemy = get_enemy_scene().instantiate()
 	new_enemy.global_position = spawn_position
-	new_enemy.target = get_closest_player()
 	Global.main.current_level.enemy_container.add_child(new_enemy)
 
 func update_sprite() -> void:
@@ -51,15 +53,13 @@ func update_sprite() -> void:
 		%Sprite.animation = "Other"
 	%Sprite.frame = health
 
-func get_closest_player() -> Player:
+func player_within_range() -> bool:
 	var min_dist : float = 99999
-	var closest_player : Player
-	for player : Player in Global.main.players:
+	for player : Player in Global.main.player_container.get_children():
 		var player_dist : float = global_position.distance_to(player.global_position)
-		if (player_dist < min_dist):
-			min_dist = player_dist
-			closest_player = player
-	return closest_player
+		if (player_dist <= SPAWN_ACTIVATION_RANGE):
+			return true
+	return false
 
 func get_enemy_scene() -> PackedScene:
 	match enemy_to_spawn:
@@ -90,7 +90,15 @@ func get_enemy_scene() -> PackedScene:
 	return
 
 func _on_spawn_timer_timeout() -> void:
+	if (Global.main.current_level.enemy_container.get_child_count() >= Global.main.current_level.MAX_ENEMY_COUNT or
+		not player_within_range()):
+		return
 	spawn_enemy(get_random_available_spawn_position())
 
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
+func _take_damage(damage_to_take : int) -> void:
+	health -= 1
+	update_sprite()
+	if (health <= 0):
+		Global.main.current_level.add_floor_tile_at_pos(global_position)
+		hide()
+		queue_free()

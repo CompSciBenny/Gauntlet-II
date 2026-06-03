@@ -259,15 +259,15 @@ properties/2/replication_mode = 1
 [node name="Demon" type="CharacterBody2D" unique_id=610540813 node_paths=PackedStringArray("attack_cooldown_timer", "hurtbox_area")]
 collision_layer = 4
 collision_mask = 1830
-platform_floor_layers = 4278190080
+platform_floor_layers = 0
 script = ExtResource("1_u8kdg")
 melee_attack_range = 96
 ranged_attack_range = 192
-shot_speed = 600.0
+shot_speed = 500.0
 attack_cooldown_timer = NodePath("Attack Cooldown Timer")
 fireball_scene = ExtResource("2_040qw")
-health = 5
-damage = 15
+health = 4
+damage = 12
 attack_rate = 1.0
 speed = 60.0
 hurtbox_area = NodePath("Hurtbox Area")
@@ -278,6 +278,7 @@ shape = SubResource("CircleShape2D_6d2h5")
 metadata/_edit_lock_ = true
 
 [node name="Hurtbox Area" type="Area2D" parent="." unique_id=2103909651]
+unique_name_in_owner = true
 collision_layer = 4
 collision_mask = 10
 
@@ -292,14 +293,15 @@ animation = &"Down Left"
 frame_progress = 0.08990082
 metadata/_edit_lock_ = true
 
-[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1316355705]
+[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1835071914]
 unique_name_in_owner = true
 path_desired_distance = 8.0
-path_max_distance = 16.0
+path_max_distance = 10.0
 path_postprocessing = 1
+avoidance_enabled = true
 radius = 16.0
-neighbor_distance = 50.0
-max_neighbors = 8
+neighbor_distance = 20.0
+max_neighbors = 24
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
@@ -316,56 +318,54 @@ metadata/_edit_lock_ = true
 
 [node name="Up" type="RayCast2D" parent="Ray Casts" unique_id=1125964962]
 target_position = Vector2(0, -320)
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
-collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="Up Right" type="RayCast2D" parent="Ray Casts" unique_id=2138289641]
 target_position = Vector2(226, -226)
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
-collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="Right" type="RayCast2D" parent="Ray Casts" unique_id=241572071]
 target_position = Vector2(320, 0)
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
-collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="Down Right" type="RayCast2D" parent="Ray Casts" unique_id=220335510]
 target_position = Vector2(226, 226)
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
-collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="Down" type="RayCast2D" parent="Ray Casts" unique_id=790627348]
 target_position = Vector2(0, 320)
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
-collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="Down Left" type="RayCast2D" parent="Ray Casts" unique_id=1451854613]
 target_position = Vector2(-226, 226)
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
-collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="Left" type="RayCast2D" parent="Ray Casts" unique_id=1569519777]
 target_position = Vector2(-320, 0)
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
-collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="Up Left" type="RayCast2D" parent="Ray Casts" unique_id=1229240521]
 target_position = Vector2(-226, -226)
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
-collide_with_bodies = false
 metadata/_edit_lock_ = true
+
+[node name="Target Ray Cast" type="RayCast2D" parent="." unique_id=425684902]
+unique_name_in_owner = true
+target_position = Vector2(640, 0)
+collision_mask = 1794
+collide_with_areas = true

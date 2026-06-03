@@ -23,8 +23,19 @@ texture = ExtResource("1_mjxji")
 1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wsl7i")
 2:0/0 = 0
 2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_oqh86")
-2:0/0/custom_data_0 = true
 0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+11:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_m8ebo"]
 resource_name = "Collectibles"
@@ -35,10 +46,6 @@ scenes/4/scene = ExtResource("5_ed3tc")
 scenes/5/scene = ExtResource("6_0eqpq")
 
 [resource]
-physics_layer_0/collision_layer = 256
-physics_layer_0/collision_mask = 0
-physics_layer_1/collision_layer = 512
-physics_layer_1/collision_mask = 0
 navigation_layer_0/layers = 1
 custom_data_layer_0/name = "exit"
 custom_data_layer_0/type = 1

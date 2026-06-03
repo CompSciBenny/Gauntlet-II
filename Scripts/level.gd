@@ -5,12 +5,12 @@ class_name Level extends Node2D
 @onready var ground_layer : TileMapLayer = %"Ground Layer"
 @onready var solid_layer : TileMapLayer = %"Solid Layer"
 
-var ground_tile_source_id : int
+const MAX_ENEMY_COUNT : int = 75
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.z_index = -1
-	delete_ground_under_walls_and_collectibles()
+	delete_inaccessible_floor_tiles()
 	add_to_group("level")
 	print("LEVEL NAME: ", name)
 
@@ -18,18 +18,24 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func delete_ground_under_walls_and_collectibles() -> void:
+func delete_inaccessible_floor_tiles() -> void:
 	for cell : Vector2i in ground_layer.get_used_cells():
 		if cell in solid_layer.get_used_cells():
 			ground_layer.erase_cell(cell)
-			ground_tile_source_id = ground_layer.get_cell_source_id(cell)
+	# Delete floor tiles under enemy spawners
+	for spawner in %"Enemy Spawners".get_children():
+		ground_layer.erase_cell(Global.global_to_map(spawner.global_position))
 
 @rpc("authority", "call_local")
 func add_floor_tile_at_pos(pos : Vector2) -> void:
 	var cell_coords : Vector2i = Global.global_to_map(pos)
-	ground_layer.set_cell(cell_coords, 0, Vector2i(1,0))
+	var floor_tile_source_id : int = %"Background Layer".get_cell_source_id(Vector2i.ZERO)
+	var floor_tile_atlas_coords : Vector2i = %"Background Layer".get_cell_atlas_coords(Vector2i.ZERO)
+	ground_layer.set_cell(cell_coords, floor_tile_source_id, floor_tile_atlas_coords)
 func add_floor_tile_at_coord(coord : Vector2i) -> void:
-	ground_layer.set_cell(coord, 0, Vector2i(1,0))
+	var floor_tile_source_id : int = %"Background Layer".get_cell_source_id(Vector2i.ZERO)
+	var floor_tile_atlas_coords : Vector2i = %"Background Layer".get_cell_atlas_coords(Vector2i.ZERO)
+	ground_layer.set_cell(coord, floor_tile_source_id, floor_tile_atlas_coords)
 
 # Called by players who run into door tiles
 @rpc("any_peer", "call_local")

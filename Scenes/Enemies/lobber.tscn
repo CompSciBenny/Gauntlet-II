@@ -259,7 +259,7 @@ properties/2/replication_mode = 1
 [node name="Lobber" type="CharacterBody2D" unique_id=610540813 node_paths=PackedStringArray("hurtbox_area")]
 collision_layer = 4
 collision_mask = 806
-platform_floor_layers = 4278190080
+platform_floor_layers = 0
 script = ExtResource("1_4p1k2")
 attack_range = 224
 retreat_distance = 160
@@ -268,6 +268,7 @@ health = 3
 damage = 10
 attack_rate = 1.0
 speed = 100.0
+target_based_on_immediate_distance = true
 hurtbox_area = NodePath("Hurtbox Area")
 metadata/_edit_lock_ = true
 
@@ -289,14 +290,16 @@ sprite_frames = SubResource("SpriteFrames_ni0v0")
 animation = &"Down"
 metadata/_edit_lock_ = true
 
-[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1316355705]
+[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1543046378]
 unique_name_in_owner = true
 path_desired_distance = 8.0
-path_max_distance = 16.0
+path_max_distance = 10.0
 path_postprocessing = 1
+avoidance_enabled = true
 radius = 16.0
-neighbor_distance = 50.0
-max_neighbors = 8
+neighbor_distance = 20.0
+max_neighbors = 24
+debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 
