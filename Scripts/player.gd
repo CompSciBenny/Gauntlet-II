@@ -73,6 +73,7 @@ func _process(delta: float) -> void:
 	calculate_look_dir()	# Must be called before handle_sprite()
 	handle_sprite()
 	handle_amulets(delta)	# Takes delta to keep track of time
+	if (is_on_trap_tile()): Global.main.current_level._activate_trap.rpc(Global.global_to_map(global_position))
 	
 	# Treat collectibles as solid walls if item limit reached
 	set_collision_mask_value(6, key_count + potion_count >= Global.ITEM_LIMIT)
@@ -185,6 +186,13 @@ func calculate_look_dir() -> void:
 func _take_damage(damage_to_take : int) -> void:
 	health -= damage_to_take
 	if (health < 0): health = 0
+
+# STEPPING ON TRAP TILES
+func is_on_trap_tile() -> bool:
+	if (not is_instance_valid(Global.main.current_level)): return false
+	var current_tile_data : TileData = Global.main.current_level.trap_layer.get_cell_tile_data(Global.global_to_map(global_position))
+	if (current_tile_data == null): return false
+	return current_tile_data.get_custom_data("trap_type") == "trap"
 
 # ENTERING AND EXITING LEVELS
 func is_on_exit_tile() -> bool:

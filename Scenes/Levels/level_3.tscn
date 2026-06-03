@@ -2,9 +2,40 @@
 
 [ext_resource type="Script" uid="uid://bwfi0ihmsgsip" path="res://Scripts/level.gd" id="1_nfly3"]
 [ext_resource type="TileSet" uid="uid://gha4eawr5glr" path="res://Assets/Tilesets/ground_tile_set.tres" id="2_t8c31"]
+[ext_resource type="Texture2D" uid="uid://c3utbvifme7to" path="res://Assets/Tileset Assets/floor_trap_tiles.png" id="3_167vu"]
 [ext_resource type="TileSet" uid="uid://c551iv37oxbr7" path="res://Assets/Tilesets/solid_tile_set.tres" id="3_rc141"]
 [ext_resource type="Texture2D" uid="uid://lcxjeqgey0a7" path="res://Assets/Tileset Assets/wall_shadow_tiles.png" id="3_yy6i0"]
 [ext_resource type="Script" uid="uid://ctawe3jtgl4n4" path="res://Scripts/wall_shadow_handler.gd" id="4_167vu"]
+[ext_resource type="Texture2D" uid="uid://chies3j2mnp25" path="res://Assets/Tileset Assets/trap_marker_tiles.png" id="7_x1k1j"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ahh4"]
+texture = ExtResource("3_167vu")
+0:1/animation_columns = 4
+0:1/animation_speed = 8.0
+0:1/animation_frame_0/duration = 1.0
+0:1/animation_frame_1/duration = 1.0
+0:1/animation_frame_2/duration = 1.0
+0:1/animation_frame_3/duration = 1.0
+0:1/0 = 0
+0:1/0/custom_data_0 = "trap"
+0:2/0 = 0
+0:2/0/custom_data_0 = "field"
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:0/animation_columns = 4
+0:0/animation_speed = 8.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/0 = 0
+0:0/0/custom_data_0 = "stun"
+
+[sub_resource type="TileSet" id="TileSet_dl55b"]
+custom_data_layer_0/name = "trap_type"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_4ahh4")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x1k1j"]
 texture = ExtResource("3_yy6i0")
@@ -17,6 +48,24 @@ texture = ExtResource("3_yy6i0")
 
 [sub_resource type="TileSet" id="TileSet_4ahh4"]
 sources/0 = SubResource("TileSetAtlasSource_x1k1j")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_osqx1"]
+texture = ExtResource("7_x1k1j")
+0:0/0 = 0
+0:0/0/custom_data_0 = 1
+1:0/0 = 0
+1:0/0/custom_data_0 = 2
+2:0/0 = 0
+2:0/0/custom_data_0 = 3
+3:0/0 = 0
+3:0/0/custom_data_0 = 4
+4:0/0 = 0
+4:0/0/custom_data_0 = 5
+
+[sub_resource type="TileSet" id="TileSet_sy7oa"]
+custom_data_layer_0/name = "trap_id"
+custom_data_layer_0/type = 2
+sources/0 = SubResource("TileSetAtlasSource_osqx1")
 
 [node name="Level 3" type="Node2D" unique_id=1160108598 node_paths=PackedStringArray("player_spawn_points") groups=["level"]]
 z_index = -1
@@ -40,6 +89,12 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAFAAAAAAAAAAEAAAAFAAAAAAAAAAIAAAAFAAA
 tile_set = ExtResource("2_t8c31")
 metadata/_edit_lock_ = true
 
+[node name="Trap Layer" type="TileMapLayer" parent="." unique_id=1665055786]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_dl55b")
+metadata/_edit_lock_ = true
+
 [node name="Shadow Layer" type="TileMapLayer" parent="." unique_id=1070297370]
 unique_name_in_owner = true
 scale = Vector2(2, 2)
@@ -53,6 +108,12 @@ unique_name_in_owner = true
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAD//wEAAQAEAAsAAAABAP//AQAFAA0AAAAfAP//AQAGAAoAAAAeAP//AQAFAA0AAAAdAP//AQAFAA0AAAAcAP//AQAFAA0AAAAbAP//AQAFAA0AAAAaAP//AQAFAA0AAAAZAP//AQAFAA0AAAAYAP//AQAFAA0AAAAXAP//AQAFAA0AAAAWAP//AQAFAA0AAAAVAP//AQAFAA0AAAAUAP//AQAFAA0AAAATAP//AQAFAA0AAAASAP//AQAFAA0AAAARAP//AQAFAA0AAAAQAP//AQAFAA0AAAAPAP//AQAFAA0AAAAOAP//AQAFAA0AAAANAP//AQAFAA0AAAAMAP//AQAFAA0AAAALAP//AQAFAA0AAAAKAP//AQAFAA0AAAAJAP//AQAFAA0AAAAIAP//AQAFAA0AAAAHAP//AQAFAAoAAAAGAP//AQAFAA0AAAAFAP//AQAFAA0AAAAEAP//AQAFAA0AAAADAP//AQAFAA0AAAACAP//AQAFAA0AAAAfAB8AAQAGAAwAAAAfAB4AAQAHAAsAAAAfAB0AAQAHAAsAAAAfABwAAQAHAAsAAAAfABsAAQAHAAsAAAAfABoAAQAHAAsAAAAfABkAAQAHAAsAAAAfABgAAQAHAAsAAAAfABcAAQAHAAsAAAAfABYAAQAHAAsAAAAfABUAAQAHAAsAAAAfABQAAQAHAAsAAAAfABMAAQAHAAsAAAAfABIAAQAHAAsAAAAfABEAAQAHAAsAAAAfABAAAQAHAAsAAAAfAA8AAQAHAAsAAAAfAA4AAQAHAAsAAAAfAA0AAQAHAAsAAAAfAAwAAQAHAAsAAAAfAAsAAQAHAAsAAAAfAAoAAQAHAAsAAAAfAAkAAQAHAAsAAAAfAAgAAQAHAAsAAAAfAAcAAQAHAAsAAAAfAAYAAQAHAAsAAAAfAAUAAQAHAAsAAAAfAAQAAQAHAAsAAAAfAAMAAQAHAAsAAAAfAAIAAQAHAAsAAAAfAAEAAQAHAAsAAAAfAAAAAQAHAAsAAAAeAB8AAQAFAA0AAAAdAB8AAQAFAAwAAAAcAB8AAQAFAA0AAAAbAB8AAQAFAAwAAAAaAB8AAQAFAA0AAAAZAB8AAQAFAA0AAAAYAB8AAQAFAA0AAAAXAB8AAQAFAA0AAAAWAB8AAQAFAA0AAAAVAB8AAQAFAA0AAAAUAB8AAQAFAA0AAAATAB8AAQAFAA0AAAASAB8AAQAFAA0AAAARAB8AAQAFAA0AAAAQAB8AAQAFAA0AAAAPAB8AAQAFAA0AAAAOAB8AAQAFAA0AAAANAB8AAQAFAA0AAAAMAB8AAQAFAA0AAAALAB8AAQAFAA0AAAAKAB8AAQAFAA0AAAAJAB8AAQAFAA0AAAAIAB8AAQAFAA0AAAAHAB8AAQAFAA0AAAAGAB8AAQAFAA0AAAAFAB8AAQAFAA0AAAAEAB8AAQAFAA0AAAADAB8AAQAFAA0AAAACAB8AAQAFAA0AAAABAB8AAQAFAA0AAAAAAB8AAQAFAA0AAAD//x8AAQAEAAwAAAD//wIAAQAHAAsAAAD//wMAAQAEAAsAAAD//wQAAQAHAAsAAAD//wUAAQAHAAsAAAD//wYAAQAHAAsAAAD//wcAAQAHAAsAAAD//wgAAQAHAAsAAAD//wkAAQAHAAsAAAD//woAAQAHAAsAAAD//wsAAQAHAAsAAAD//wwAAQAHAAsAAAD//w0AAQAHAAsAAAD//w4AAQAHAAsAAAD//w8AAQAHAAsAAAD//xAAAQAHAAsAAAD//xEAAQAHAAsAAAD//xIAAQAHAAsAAAD//xMAAQAHAAsAAAD//xQAAQAHAAsAAAD//xUAAQAHAAsAAAD//xYAAQAHAAsAAAD//xcAAQAHAAsAAAD//xgAAQAHAAsAAAD//xkAAQAHAAsAAAD//xoAAQAHAAsAAAD//xsAAQAHAAsAAAD//xwAAQAHAAsAAAD//x0AAQAHAAsAAAD//x4AAQAHAAsAAAAAAAEAAQAGAA0AAAAAAAMAAQAGAA0AAAACAAQAAQAHAA0AAAAEAAgAAQAHAA0AAAAIAAcAAQAHAA0AAAAJAAMAAQAHAA0AAAAHAAAAAQAHAAwAAAANAAYAAQAHAA0AAAAOAAkAAQAHAA0AAAARAAsAAQAHAA0AAAARAAMAAQAHAA0AAAAUAAYAAQAHAA0AAAAWAAgAAQAHAA0AAAAXABAAAQAHAA0AAAAFAA8AAQAHAA0AAAAMABIAAQAHAA0AAAATABQAAQAHAA0AAAAUAA0AAQAHAA0AAAAdAB4AAQAHAAoAAAAbAB4AAQAHAAoAAAAUABwAAQAHAA0AAAAXABkAAQAHAA0AAAARABkAAQAHAA0AAAAZABQAAQAHAA0AAAAcAAwAAQAGAA0AAAAbAAwAAQAEAA0AAAD//wAAAQAHAAsAAAD/////AQAEAAoAAAAAAP//AQAFAA0AAAA=")
 tile_set = ExtResource("3_rc141")
+metadata/_edit_lock_ = true
+
+[node name="Trap Data Layer" type="TileMapLayer" parent="." unique_id=1432792479]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_sy7oa")
 metadata/_edit_lock_ = true
 
 [node name="Enemy Spawners" type="Node2D" parent="." unique_id=870978950]

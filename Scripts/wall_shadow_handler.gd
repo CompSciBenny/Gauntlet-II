@@ -4,7 +4,7 @@ class_name WallShadowHandler extends TileMapLayer
 var previous_wall_tiles : Array[Vector2i]
 
 func _process(delta: float) -> void:
-	if Engine.is_editor_hint():
+	if (Engine.is_editor_hint() or not Engine.is_editor_hint()):
 		var current_wall_tiles : Array[Vector2i] = %"Solid Layer".get_used_cells()
 		if (not current_wall_tiles == previous_wall_tiles):
 			add_shadow_tiles()

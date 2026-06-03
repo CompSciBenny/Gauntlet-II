@@ -4,6 +4,7 @@ class_name Level extends Node2D
 @onready var enemy_container : Node2D = %"Enemy Container"
 @onready var ground_layer : TileMapLayer = %"Ground Layer"
 @onready var solid_layer : TileMapLayer = %"Solid Layer"
+@onready var trap_layer : TileMapLayer = %"Trap Layer"
 
 const MAX_ENEMY_COUNT : int = 75
 
@@ -13,6 +14,7 @@ func _ready() -> void:
 	delete_inaccessible_floor_tiles()
 	add_to_group("level")
 	print("LEVEL NAME: ", name)
+	%"Trap Data Layer".hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,6 +27,9 @@ func delete_inaccessible_floor_tiles() -> void:
 	# Delete floor tiles under enemy spawners
 	for spawner in %"Enemy Spawners".get_children():
 		ground_layer.erase_cell(Global.global_to_map(spawner.global_position))
+	# Delete floor tiles under trap tiles
+	for trap_tile in Global.main.current_level.trap_layer.get_used_cells():
+		ground_layer.erase_cell(trap_tile)
 
 @rpc("authority", "call_local")
 func add_floor_tile_at_pos(pos : Vector2) -> void:
@@ -55,6 +60,19 @@ func _unlock_door(door_tile : Vector2i) -> void:
 			
 		# Removes coords of deleted door
 		doors_to_unlock.remove_at(0)
+
+# Called by players who step on trap tiles
+@rpc("any_peer", "call_local")
+func _activate_trap(trap_tile : Vector2i) -> void:
+	var floor_trap_tile_data : TileData = %"Trap Data Layer".get_cell_tile_data(trap_tile)
+	var floor_trap_id : int = floor_trap_tile_data.get_custom_data("trap_id")
+	for trap_data_tile : Vector2i in %"Trap Data Layer".get_used_cells():
+		var wall_trap_tile_data : TileData = %"Trap Data Layer".get_cell_tile_data(trap_data_tile)
+		var wall_trap_id : int = wall_trap_tile_data.get_custom_data("trap_id")
+		if (not floor_trap_id == wall_trap_id): continue
+		solid_layer.erase_cell(trap_data_tile)
+		trap_layer.erase_cell(trap_data_tile)
+		add_floor_tile_at_coord(trap_data_tile)
 
 func is_tile_empty(tile_to_check : Vector2i) -> bool:
 	if (solid_layer.get_used_cells().has(tile_to_check)):

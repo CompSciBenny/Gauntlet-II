@@ -584,10 +584,10 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="Controls Options Container" type="VBoxContainer" parent="Title UI/Controls" unique_id=1515195721]
-custom_minimum_size = Vector2(224, 0)
+custom_minimum_size = Vector2(208, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.65
+anchor_left = 0.675
 anchor_top = 0.235
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -605,7 +605,6 @@ script = ExtResource("6_mmixe")
 
 [node name="Legend" type="TextureRect" parent="Title UI" unique_id=959044640]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -619,10 +618,10 @@ metadata/_edit_lock_ = true
 
 [node name="Legend Options Container" type="VBoxContainer" parent="Title UI/Legend" unique_id=1153934259]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(224, 0)
+custom_minimum_size = Vector2(208, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.65
+anchor_left = 0.675
 anchor_top = 0.235
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -654,10 +653,10 @@ metadata/_edit_lock_ = true
 
 [node name="Monsters Options Container" type="VBoxContainer" parent="Title UI/Monsters" unique_id=1639988211]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(224, 0)
+custom_minimum_size = Vector2(208, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.65
+anchor_left = 0.675
 anchor_top = 0.235
 anchor_right = 1.0
 anchor_bottom = 1.0
