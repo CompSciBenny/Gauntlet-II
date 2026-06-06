@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 	if (not is_multiplayer_authority() or state == State.EXITING or state == State.TRANSPORTING or state == State.STUNNED): return
 	
 	# Spectate a player if dead
-	if (state == State.DEAD):
+	if (state == State.DEAD and is_instance_valid(player_spectating)):
 		if (player_spectating.state == State.DEAD): choose_random_player_to_spectate()
 		%Camera.global_position = player_spectating.global_position
 		return

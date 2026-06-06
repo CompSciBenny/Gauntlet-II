@@ -21,11 +21,14 @@ enum State {
 	CONTROLS,
 	LEGEND,
 	MONSTERS,
+	GAME,
+	PAUSE,
 }
 
 func _ready() -> void:
 	Global.ui = self
 	%"Menu Music".play()
+	%"Title UI".show()
 	_return_to_main_menu()
 	
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -33,10 +36,21 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	
 	%"Status Label".text = ""
+	
 	%"Level Label".hide()
 	%"Level Transition".hide()
 	
 func _process(delta: float) -> void:
+	# Deal with pausing the game
+	if (Input.is_action_just_pressed("pause") and state == State.GAME):
+		%Pause.show()
+		state = State.PAUSE
+	elif (Input.is_action_just_pressed("pause") and state == State.PAUSE):
+		%Pause.hide()
+		state = State.GAME
+		
+	#print(State.keys()[state])
+		
 	set_player_class_and_color()
 	update_player_banners()
 	update_character_previews()
@@ -54,8 +68,7 @@ func _process(delta: float) -> void:
 
 @rpc("any_peer", "call_local")
 func add_player_banners() -> void:
-	for banner in %"Player Banners".get_children():
-		banner.queue_free()
+	clear_player_banners()
 	#print(Global.main.player_container.get_child_count())
 	for player : Player in Global.main.player_container.get_children():
 		var new_player_banner : PlayerBanner = player_banner_scene.instantiate()
@@ -67,11 +80,9 @@ func add_player_banners() -> void:
 		new_player_banner.set_keys()
 		new_player_banner.set_potions()
 		%"Player Banners".add_child(new_player_banner)
-
 @rpc("any_peer", "call_local")
 func add_character_previews() -> void:
-	for preview in %"Character Previews".get_children():
-		preview.queue_free()
+	clear_character_previews()
 	#print(Global.main.player_container.get_child_count())
 	for player : Player in Global.main.player_container.get_children():
 		var new_preview : CharacterPreview = character_preview_scene.instantiate()
@@ -87,6 +98,12 @@ func add_character_previews() -> void:
 		else:
 			new_preview.toggle_identifier_label(false)
 		%"Character Previews".add_child(new_preview)
+func clear_player_banners() -> void:
+	for banner in %"Player Banners".get_children():
+		banner.queue_free()
+func clear_character_previews() -> void:
+	for preview in %"Character Previews".get_children():
+		preview.queue_free()
 
 func update_player_banners() -> void:
 	if (not %"Player Banners".get_child_count() == Global.main.player_container.get_child_count()):
@@ -146,23 +163,33 @@ func activate_level_transition(level_transitioning_to : int) -> void:
 	%"Level Label".show()
 	%"Level Transition".show()
 	%"Level Transition SFX".play()
+	if (not state == State.PAUSE): state = State.GAME
 func _on_level_transition_sfx_finished() -> void:
 	%"Level Transition".hide()
-	Global.main._next_level.rpc()
+	if (state == State.GAME or state == State.PAUSE):
+		Global.main._next_level.rpc()
 
 
 func _return_to_main_menu() -> void:
-	if (state == State.LOBBY):
+	if (state == State.LOBBY or state == State.PAUSE):
 		if (multiplayer.is_server()):
 			Global.player_spawner.disconnect_and_despawn_all_players()
 		else:
 			Global.player_spawner.despawn_and_despawn_player.rpc(multiplayer.get_unique_id())
+	%"Title UI".show()
 	%Title.show()
 	%Lobby.hide()
 	%Join.hide()
 	%Controls.hide()
 	%Legend.hide()
 	%Monsters.hide()
+	%Pause.hide()
+	clear_player_banners()
+	clear_character_previews()
+	if (state == State.GAME or state == State.PAUSE):
+		#Global.main._spawn_lobby.rpc()
+		Global.main.delete_current_level()
+		Global.main.delete_all_enemies()
 	state = State.TITLE
 func _on_monsters_button_pressed() -> void:
 	%Title.hide()
@@ -181,11 +208,13 @@ func _on_legend_button_pressed() -> void:
 	%Monsters.hide()
 	state = State.LEGEND
 func _on_host_button_pressed() -> void:
+	Global.main.spawn_lobby()
 	await get_tree().create_timer(0.1).timeout
 	NetworkHandler.start_host()
 	show_lobby()
 	state = State.LOBBY
 func _on_join_button_pressed() -> void:
+	Global.main.spawn_lobby()
 	%Title.hide()
 	%Lobby.hide()
 	%Join.show()
@@ -257,3 +286,9 @@ func _on_connection_timeout_timer_timeout() -> void:
 	%"IP Address Edit".text = ""
 	%"Error Label".text = "  TIMEOUT!"
 	%"Error Label".add_theme_color_override("font_color", Global.RED)
+
+
+func _on_resume_button_pressed() -> void:
+	if (state == State.PAUSE):
+		%Pause.hide()
+		state = State.GAME

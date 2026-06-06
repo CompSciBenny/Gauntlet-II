@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	if (not target): return
+	if (not target or not is_instance_valid(target)): return
 	
 	handle_state()
 	handle_behavior()

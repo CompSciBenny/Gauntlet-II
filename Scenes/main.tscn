@@ -13,9 +13,11 @@ script = ExtResource("1_14pre")
 
 [node name="Player Container" type="Node2D" parent="." unique_id=2069757221]
 unique_name_in_owner = true
+metadata/_edit_lock_ = true
 
 [node name="Enemy Container" type="Node2D" parent="." unique_id=360968238]
 unique_name_in_owner = true
+metadata/_edit_lock_ = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=666609817]
 unique_name_in_owner = true

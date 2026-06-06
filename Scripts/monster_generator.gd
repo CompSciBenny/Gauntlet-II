@@ -60,6 +60,7 @@ func update_sprite() -> void:
 func player_within_range() -> bool:
 	var min_dist : float = 99999
 	for player : Player in Global.main.player_container.get_children():
+		if (player.state == Player.State.DEAD): continue
 		var player_dist : float = global_position.distance_to(player.global_position)
 		if (player_dist <= SPAWN_ACTIVATION_RANGE):
 			return true

@@ -13,6 +13,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	super._process(delta)
+	if (not target or not is_instance_valid(target)): return
 	handle_state()
 	handle_base_behavior()
 	handle_special_behavior()

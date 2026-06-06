@@ -7,14 +7,19 @@ var current_level : Level
 var current_level_num : int = 1
 
 var players : Array[Player] = []
+var default_player_spawn_positions : Array[Vector2] = [
+	Vector2(56., 56.),
+	Vector2(24., 56.),
+	Vector2(56., 24.),
+	Vector2(24., 24.),
+]
 
 signal begin_level_transition
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.main = self
-	_spawn_lobby.rpc()
-	#Global.ui.activate_level_transition(current_level_num)
+	#_spawn_lobby.rpc()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -39,10 +44,14 @@ func _next_level() -> void:
 	# Adds level as a child of main (in LevelSpawner auto spawn list, spawns for all clients)
 	#current_level =
 	%LevelSpawner.spawn_level(next_level_scene_file_path)
+func delete_current_level() -> void:
+	if (current_level or is_instance_valid(current_level)):
+		current_level.queue_free()
+		current_level = null
 
-@rpc("authority", "call_local")
-func _spawn_lobby() -> void:
-	if (not multiplayer.is_server() or not is_multiplayer_authority()): return
+#@rpc("authority", "call_local")
+func spawn_lobby() -> void:
+	#if (not multiplayer.is_server() or not is_multiplayer_authority()): return
 	# Adds level as a child of main (in LevelSpawner auto spawn list, spawns for all clients)
 	#current_level =
 	%LevelSpawner.spawn_lobby()
@@ -51,6 +60,9 @@ func _spawn_lobby() -> void:
 func _spawn_enemy(enemy_scene_path : String, spawn_pos : Vector2, health = -1) -> void:
 	if (not multiplayer.is_server() or not is_multiplayer_authority()): return
 	%"Enemy Spawner".spawn_enemy(enemy_scene_path, spawn_pos, health)
+func delete_all_enemies() -> void:
+	for enemy : Enemy in %"Enemy Container".get_children():
+		enemy.queue_free()
 
 func _on_child_entered_tree(node: Node) -> void:
 	# Sets the current level and positions players at their respective spawn points

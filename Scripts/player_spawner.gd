@@ -11,14 +11,17 @@ func _ready() -> void:
 	NetworkHandler.host_started.connect(spawn_host_player)
 
 func spawn_player(id : int) -> void:
-	var debug_health : int = (get_parent().player_container.get_child_count() + 1) * 5
+	var debug_health : int = (Global.main.player_container.get_child_count() + 1) * 5
 	if !multiplayer.is_server(): return
 
 	var new_player : Player = network_player.instantiate()
 	# Node name is synchronized through MultiplayerSpawner, we can use this to set authority to the player.
 	new_player.name = str(id)
-	new_player.global_position = get_parent().current_level.player_spawn_points.get_child(get_parent().players.size()).global_position
-	get_parent().players.append(new_player)
+	if (Global.main.current_level):
+		new_player.global_position = Global.main.current_level.player_spawn_points.get_child(Global.main.players.size()).global_position
+	else:
+		new_player.global_position = Global.main.default_player_spawn_positions[Global.main.players.size()]
+	Global.main.players.append(new_player)
 	
 	new_player.health = debug_health
 	get_node(spawn_path).call_deferred("add_child", new_player)

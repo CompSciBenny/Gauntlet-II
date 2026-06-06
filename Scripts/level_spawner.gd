@@ -35,7 +35,7 @@ func spawn_level(level_scene_path : String) -> Level:
 	return new_level
 
 func spawn_lobby() -> Level:
-	if (not multiplayer.is_server()): return
+	#if (not multiplayer.is_server()): return
 	var new_lobby : Level = load("res://Scenes/Levels/lobby.tscn").instantiate()
 	get_node(spawn_path).call_deferred("add_child", new_lobby)
 	return new_lobby
