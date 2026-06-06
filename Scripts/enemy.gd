@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 	move_and_collide(velocity)
 
 func get_closest_player() -> Player:
-	if (Global.main.player_container.get_child_count() <= 0): return
+	if (Global.main.get_player_count() <= 0): return
 	var closest_player : Player = Global.main.player_container.get_child(0)
 	var min_distance : float
 	#if (target_based_on_immediate_distance): min_distance = global_position.distance_to(closest_player.global_position)

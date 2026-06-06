@@ -25,6 +25,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func get_player_count() -> int:
+	return player_container.get_child_count()
+
 @rpc("any_peer", "call_local")
 func _check_for_level_transition() -> void:
 	for player : Player in player_container.get_children():
@@ -69,6 +72,6 @@ func _on_child_entered_tree(node: Node) -> void:
 	if (node.is_in_group("level")):
 		if (current_level): current_level.queue_free()
 		current_level = node
-		for player in range(player_container.get_child_count()):
+		for player in range(get_player_count()):
 			var spawn_position : Vector2 = current_level.player_spawn_points.get_child(player).global_position
 			player_container.get_child(player).enter_level(spawn_position)

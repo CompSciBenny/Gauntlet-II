@@ -11,7 +11,7 @@ func _ready() -> void:
 	NetworkHandler.host_started.connect(spawn_host_player)
 
 func spawn_player(id : int) -> void:
-	var debug_health : int = (Global.main.player_container.get_child_count() + 1) * 5
+	var debug_health : int = (Global.main.get_player_count() + 1) * 5
 	if !multiplayer.is_server(): return
 
 	var new_player : Player = network_player.instantiate()

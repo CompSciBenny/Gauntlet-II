@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cys61qnxe15sy" path="res://Scripts/enemy_spawner.gd" id="5_344ge"]
 
 [node name="Main" type="Node2D" unique_id=1147173165]
+process_mode = 1
 script = ExtResource("1_14pre")
 
 [node name="Player Container" type="Node2D" parent="." unique_id=2069757221]
@@ -37,6 +38,7 @@ spawn_path = NodePath("../Enemy Container")
 script = ExtResource("5_344ge")
 
 [node name="UI Container" type="CanvasLayer" parent="." unique_id=821411300]
+process_mode = 3
 
 [node name="UI" parent="UI Container" unique_id=247293930 instance=ExtResource("4_21xkr")]
 custom_minimum_size = Vector2(640, 400)

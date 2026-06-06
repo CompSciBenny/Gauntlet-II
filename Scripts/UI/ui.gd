@@ -43,10 +43,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# Deal with pausing the game
 	if (Input.is_action_just_pressed("pause") and state == State.GAME):
+		%"Player Banners".hide()
 		%Pause.show()
+		if (Global.main.get_player_count() <= 1): get_tree().paused = true
 		state = State.PAUSE
 	elif (Input.is_action_just_pressed("pause") and state == State.PAUSE):
+		%"Player Banners".show()
 		%Pause.hide()
+		get_tree().paused = false
 		state = State.GAME
 		
 	#print(State.keys()[state])
@@ -69,7 +73,7 @@ func _process(delta: float) -> void:
 @rpc("any_peer", "call_local")
 func add_player_banners() -> void:
 	clear_player_banners()
-	#print(Global.main.player_container.get_child_count())
+	#print(Global.main.get_player_count())
 	for player : Player in Global.main.player_container.get_children():
 		var new_player_banner : PlayerBanner = player_banner_scene.instantiate()
 		new_player_banner.player = player
@@ -83,7 +87,7 @@ func add_player_banners() -> void:
 @rpc("any_peer", "call_local")
 func add_character_previews() -> void:
 	clear_character_previews()
-	#print(Global.main.player_container.get_child_count())
+	#print(Global.main.get_player_count())
 	for player : Player in Global.main.player_container.get_children():
 		var new_preview : CharacterPreview = character_preview_scene.instantiate()
 		new_preview.play_animation(player.get_color_and_class())
@@ -106,7 +110,7 @@ func clear_character_previews() -> void:
 		preview.queue_free()
 
 func update_player_banners() -> void:
-	if (not %"Player Banners".get_child_count() == Global.main.player_container.get_child_count()):
+	if (not %"Player Banners".get_child_count() == Global.main.get_player_count()):
 		add_player_banners.rpc()
 		return
 	for banner in %"Player Banners".get_children():
@@ -118,7 +122,7 @@ func update_player_banners() -> void:
 		banner.set_potions()
 		banner.set_invulnerable_effect()
 func update_character_previews() -> void:
-	if (not %"Character Previews".get_child_count() == Global.main.player_container.get_child_count()):
+	if (not %"Character Previews".get_child_count() == Global.main.get_player_count()):
 		add_character_previews.rpc()
 		return
 	for i in range(%"Character Previews".get_child_count()):
@@ -171,6 +175,7 @@ func _on_level_transition_sfx_finished() -> void:
 
 
 func _return_to_main_menu() -> void:
+	get_tree().paused = false
 	if (state == State.LOBBY or state == State.PAUSE):
 		if (multiplayer.is_server()):
 			Global.player_spawner.disconnect_and_despawn_all_players()
@@ -249,6 +254,8 @@ func show_lobby() -> void:
 		%"Start Game Button".hide()
 		%"Waiting For Host Label".show()
 	
+	%"Player Banners".show()
+	
 	state = State.LOBBY
 
 func _attempt_to_join_host() -> void:
@@ -290,5 +297,7 @@ func _on_connection_timeout_timer_timeout() -> void:
 
 func _on_resume_button_pressed() -> void:
 	if (state == State.PAUSE):
+		%"Player Banners".show()
 		%Pause.hide()
+		get_tree().paused = false
 		state = State.GAME
