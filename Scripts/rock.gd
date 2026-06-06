@@ -12,7 +12,7 @@ func _ready() -> void:
 	%Sprite.play("Rock")
 	
 	%"Lob SFX".play()
-	%"Hurtbox Collider".disabled = true
+	%"Hitbox Collider".disabled = true
 	
 	impact_distance = global_position.distance_to(impact_position)
 	
@@ -22,7 +22,7 @@ func _ready() -> void:
 	tween.tween_callback(impact)
 
 func impact() -> void:
-	%"Hurtbox Collider".disabled = false
+	%"Hitbox Collider".disabled = false
 	%Sprite.speed_scale = 1.
 	%Sprite.play("Impact")
 

@@ -18,6 +18,14 @@ region = Rect2(273, 203, 16, 16)
 atlas = ExtResource("2_ne4qj")
 region = Rect2(237, 203, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_av12p"]
+atlas = ExtResource("2_ne4qj")
+region = Rect2(201, 95, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il121"]
+atlas = ExtResource("2_ne4qj")
+region = Rect2(219, 95, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_akv1x"]
 atlas = ExtResource("2_ne4qj")
 region = Rect2(291, 203, 16, 16)
@@ -63,6 +71,17 @@ animations = [{
 "loop": false,
 "name": &"Down Right",
 "speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_av12p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il121")
+}],
+"loop": false,
+"name": &"Impact",
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -125,7 +144,7 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8uhnr")
-animation = &"Up Left"
+animation = &"Impact"
 metadata/_edit_lock_ = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=116148926]
@@ -133,3 +152,4 @@ replication_config = SubResource("SceneReplicationConfig_augfd")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]

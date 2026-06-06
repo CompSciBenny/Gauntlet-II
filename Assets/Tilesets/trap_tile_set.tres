@@ -1,6 +1,7 @@
 [gd_resource type="TileSet" format=3 uid="uid://67k0hsjakp5d"]
 
 [ext_resource type="Texture2D" uid="uid://c3utbvifme7to" path="res://Assets/Tileset Assets/floor_trap_tiles.png" id="1_rillb"]
+[ext_resource type="Texture2D" uid="uid://gr63kclgxxr5" path="res://Assets/Tileset Assets/enemies.png" id="2_x0ppx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jv26f"]
 texture = ExtResource("1_rillb")
@@ -32,7 +33,33 @@ texture = ExtResource("1_rillb")
 0:0/0 = 0
 0:0/0/custom_data_0 = "stun"
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8w73q"]
+texture = ExtResource("2_x0ppx")
+0:0/0 = 0
+0:0/0/custom_data_1 = "ghost"
+1:0/0 = 0
+1:0/0/custom_data_1 = "grunt"
+2:0/0 = 0
+2:0/0/custom_data_1 = "demon"
+3:0/0 = 0
+3:0/0/custom_data_1 = "lobber"
+4:0/0 = 0
+4:0/0/custom_data_1 = "death"
+0:1/0 = 0
+0:1/0/custom_data_1 = "acid_puddle"
+1:1/0 = 0
+1:1/0/custom_data_1 = "it"
+2:1/0 = 0
+2:1/0/custom_data_1 = "sorcerer"
+3:1/0 = 0
+3:1/0/custom_data_1 = "thief"
+4:1/0 = 0
+4:1/0/custom_data_1 = "mugger"
+
 [resource]
 custom_data_layer_0/name = "trap_type"
 custom_data_layer_0/type = 4
+custom_data_layer_1/name = "enemy"
+custom_data_layer_1/type = 4
 sources/0 = SubResource("TileSetAtlasSource_jv26f")
+sources/1 = SubResource("TileSetAtlasSource_8w73q")

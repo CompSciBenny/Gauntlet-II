@@ -49,7 +49,7 @@ func range_attack_player() -> void:
 	move_dir = Vector2.ZERO
 	if (not attack_cooldown_timer.is_stopped()): return
 	for ray_cast : RayCast2D in %"Ray Casts".get_children():
-		if (not ray_cast.is_colliding() or not ray_cast.get_collider().owner.is_in_group("player")): continue
+		if (not ray_cast.is_colliding() or (ray_cast.get_collider().owner and not ray_cast.get_collider().owner.is_in_group("player"))): continue
 		var player : Player = ray_cast.get_collider().owner
 		if (player == target and global_position.distance_to(ray_cast.get_collision_point()) <= ranged_attack_range):
 			shoot_fireball(ray_cast.target_position.normalized())

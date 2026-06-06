@@ -11,6 +11,7 @@ func _ready() -> void:
 	NetworkHandler.host_started.connect(spawn_host_player)
 
 func spawn_player(id : int) -> void:
+	var debug_health : int = (get_parent().player_container.get_child_count() + 1) * 5
 	if !multiplayer.is_server(): return
 
 	var new_player : Player = network_player.instantiate()
@@ -19,6 +20,7 @@ func spawn_player(id : int) -> void:
 	new_player.global_position = get_parent().current_level.player_spawn_points.get_child(get_parent().players.size()).global_position
 	get_parent().players.append(new_player)
 	
+	new_player.health = debug_health
 	get_node(spawn_path).call_deferred("add_child", new_player)
 
 func disconnect_and_despawn_all_players() -> void:
@@ -41,7 +43,6 @@ func despawn_and_despawn_player(id : int) -> void:
 	NetworkHandler.peer.disconnect_peer(id)
 	for player : Player in Global.main.player_container.get_children():
 		if (id == int(player.name)):
-			print("WE DID IT BRUH!")
 			Global.main.players.remove_at(Global.main.players.find(player))
 			player.queue_free()
 			break

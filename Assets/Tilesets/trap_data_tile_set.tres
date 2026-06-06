@@ -1,0 +1,33 @@
+[gd_resource type="TileSet" format=3 uid="uid://bp3h1yw6xig0k"]
+
+[ext_resource type="Texture2D" uid="uid://chies3j2mnp25" path="res://Assets/Tileset Assets/trap_marker_tiles.png" id="1_x0fbv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3koi7"]
+texture = ExtResource("1_x0fbv")
+0:0/0 = 0
+0:0/0/custom_data_0 = 1
+1:0/0 = 0
+1:0/0/custom_data_0 = 2
+2:0/0 = 0
+2:0/0/custom_data_0 = 3
+3:0/0 = 0
+3:0/0/custom_data_0 = 4
+4:0/0 = 0
+4:0/0/custom_data_0 = 5
+0:1/0 = 0
+0:1/0/custom_data_1 = 1
+1:1/0 = 0
+1:1/0/custom_data_1 = 2
+2:1/0 = 0
+2:1/0/custom_data_1 = 3
+3:1/0 = 0
+3:1/0/custom_data_1 = 4
+4:1/0 = 0
+4:1/0/custom_data_1 = 5
+
+[resource]
+custom_data_layer_0/name = "trap_id"
+custom_data_layer_0/type = 2
+custom_data_layer_1/name = "move_id"
+custom_data_layer_1/type = 2
+sources/0 = SubResource("TileSetAtlasSource_3koi7")

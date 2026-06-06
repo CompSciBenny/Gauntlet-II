@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bu6n6c0qr3so0" path="res://Assets/UI/Color Button Textures/blue_selected.png" id="22_busl5"]
 [ext_resource type="Texture2D" uid="uid://bm568e6seuurv" path="res://Assets/UI/Color Button Textures/yellow.png" id="23_57xf8"]
 [ext_resource type="Texture2D" uid="uid://cksuj13wf1ijj" path="res://Assets/UI/Color Button Textures/yellow_selected.png" id="24_rdojl"]
+[ext_resource type="AudioStream" uid="uid://g8e35sxibl7q" path="res://Assets/SFX/Music/main_music.wav" id="28_unbrw"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_3h0f6"]
 allow_unpress = true
@@ -690,6 +691,10 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 stream = ExtResource("5_q7pk6")
 volume_db = -8.0
+
+[node name="Menu Music" type="AudioStreamPlayer" parent="SFX" unique_id=1454560418]
+unique_name_in_owner = true
+stream = ExtResource("28_unbrw")
 
 [node name="Connection Timeout Timer" type="Timer" parent="." unique_id=404306349]
 unique_name_in_owner = true

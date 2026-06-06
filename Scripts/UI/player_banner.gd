@@ -7,6 +7,7 @@ class_name PlayerBanner extends Control
 @export var key_icon_texture : CompressedTexture2D
 @export var potion_icon_texture : CompressedTexture2D
 
+var player : Player
 var player_color : Global.PlayerColor
 var player_class : Global.Class
 
@@ -37,22 +38,18 @@ func add_potions(amount : int) -> void:
 		new_potion_icon.texture = potion_icon_texture
 		new_potion_icon.custom_minimum_size = Vector2i(16, 16)
 		%"Key Slots Container".add_child(new_potion_icon)
-func set_keys(amount : int) -> void:
+func set_keys() -> void:
 	clear_keys()
-	add_keys(amount)
-func set_potions(amount : int) -> void:
+	add_keys(player.key_count)
+func set_potions() -> void:
 	clear_potions()
-	add_potions(amount)
+	add_potions(player.potion_count)
 func clear_keys() -> void:
 	for key_icon in %"Key Slots Container".get_children():
 		key_icon.queue_free()
 func clear_potions() -> void:
 	for potion_icon in %"Potion Slots Container".get_children():
 		potion_icon.queue_free()
-	
-func reset() -> void:
-	set_score(0)
-	set_health(0)
 
 func at_item_limit() -> bool:
 	var items_counted : int = 0
@@ -63,8 +60,8 @@ func at_item_limit() -> bool:
 	else:
 		return false
 
-func set_class(class_to_set_to : Global.Class) -> void:
-	match class_to_set_to:
+func set_class() -> void:
+	match player.player_class:
 		Global.Class.ELF:
 			%"Class Title".texture = elf_title_texture
 		Global.Class.WARRIOR:
@@ -73,8 +70,8 @@ func set_class(class_to_set_to : Global.Class) -> void:
 			%"Class Title".texture = valkyrie_title_texture
 		Global.Class.WIZARD:
 			%"Class Title".texture = wizard_title_texture
-func set_color(color_to_set_to : Global.PlayerColor) -> void:
-	match color_to_set_to:
+func set_color() -> void:
+	match player.player_color:
 		Global.PlayerColor.BLUE:
 			%"Player Banner".self_modulate = Global.BLUE
 			%"Score Label".modulate = Global.BLUE
@@ -95,13 +92,18 @@ func set_color(color_to_set_to : Global.PlayerColor) -> void:
 			%"Score Label".modulate = Global.YELLOW
 			if (not invulnerable): %"Health Label".modulate = Global.YELLOW
 			%"Class Title".modulate = Global.YELLOW
-func set_score(new_score : int) -> void:
-	%"Score Label".text = str(new_score)
-func set_health(new_health : int) -> void:
-	%"Health Label".text = str(new_health)
+func set_score() -> void:
+	%"Score Label".text = str(player.score)
+func set_health() -> void:
+	if (player.state == Player.State.EXITING):
+		%"Health Label".text = "EXITED"
+	elif (player.health > 0):
+		%"Health Label".text = str(player.health)
+	else:
+		%"Health Label".text = "DEAD"
 
-func set_invulnerable_effect(is_invulnerable : bool) -> void:
-	invulnerable = is_invulnerable
+func set_invulnerable_effect() -> void:
+	invulnerable = player.active_amulets.has(Amulet.Effect.INVULNERABILITY)
 func handle_invulnerable_effect() -> void:
 	if (invulnerable and %"Invulnerable Blink Effect Timer".is_stopped()):
 		%"Health Label".modulate = Color.WHITE

@@ -2,6 +2,7 @@ class_name Main extends Node2D
 
 var current_level : Level
 @onready var player_container : Node2D = %"Player Container"
+@onready var enemy_container : Node2D = %"Enemy Container"
 
 var current_level_num : int = 1
 
@@ -21,9 +22,10 @@ func _process(delta: float) -> void:
 
 @rpc("any_peer", "call_local")
 func _check_for_level_transition() -> void:
-	for player : Player in %"Player Container".get_children():
-		if (not player.state == Player.State.EXITING):
-			return
+	for player : Player in player_container.get_children():
+		if (player.state == Player.State.EXITING or player.state == Player.State.DEAD):
+			continue
+		return
 	current_level_num += 1
 	Global.ui.activate_level_transition.rpc(current_level_num)
 	#if (current_level): current_level.queue_free()
@@ -45,11 +47,16 @@ func _spawn_lobby() -> void:
 	#current_level =
 	%LevelSpawner.spawn_lobby()
 	
+@rpc("authority", "call_local")
+func _spawn_enemy(enemy_scene_path : String, spawn_pos : Vector2, health = -1) -> void:
+	if (not multiplayer.is_server() or not is_multiplayer_authority()): return
+	%"Enemy Spawner".spawn_enemy(enemy_scene_path, spawn_pos, health)
+
 func _on_child_entered_tree(node: Node) -> void:
 	# Sets the current level and positions players at their respective spawn points
 	if (node.is_in_group("level")):
 		if (current_level): current_level.queue_free()
 		current_level = node
-		for player in range(%"Player Container".get_child_count()):
+		for player in range(player_container.get_child_count()):
 			var spawn_position : Vector2 = current_level.player_spawn_points.get_child(player).global_position
-			%"Player Container".get_child(player).enter_level(spawn_position)
+			player_container.get_child(player).enter_level(spawn_position)

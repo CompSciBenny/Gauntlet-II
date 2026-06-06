@@ -1,41 +1,102 @@
 [gd_resource type="TileSet" format=3 uid="uid://gha4eawr5glr"]
 
 [ext_resource type="Texture2D" uid="uid://cwbmru053jogs" path="res://Assets/Tileset Assets/ground_tiles.png" id="1_mjxji"]
+[ext_resource type="Texture2D" uid="uid://bbutb1j033rhq" path="res://Assets/Tileset Assets/collectibles_tile_set.png" id="2_6v16g"]
 [ext_resource type="PackedScene" uid="uid://8wodao8v5nrh" path="res://Scenes/Collectibles/key.tscn" id="2_usf5d"]
 [ext_resource type="PackedScene" uid="uid://richrle45q13" path="res://Scenes/Collectibles/potion.tscn" id="3_3ceov"]
 [ext_resource type="PackedScene" uid="uid://drswqunc6xta2" path="res://Scenes/Collectibles/open_treasure.tscn" id="4_soc4w"]
 [ext_resource type="PackedScene" uid="uid://cfjkcandpupem" path="res://Scenes/Collectibles/food.tscn" id="5_ed3tc"]
 [ext_resource type="PackedScene" uid="uid://dk4b2gguuh8ye" path="res://Scenes/Collectibles/amulet.tscn" id="6_0eqpq"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_wsl7i"]
-vertices = PackedVector2Array(7, -7, 8, -7, 8, 7, 7, 7, 7, 8, -7, 8, -7, 7, -7, -7, -8, 7, -8, -7, 7, -8, -7, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(0, 3, 6, 7), PackedInt32Array(6, 8, 9, 7), PackedInt32Array(10, 0, 7, 11)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-7, -8, 7, -8, 7, -7, 8, -7, 8, 7, 7, 7, 7, 8, -7, 8, -7, 7, -8, 7, -8, -7, -7, -7)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_0eqpq"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
 agent_radius = 0.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_oqh86"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wqkje"]
 texture = ExtResource("1_mjxji")
 0:0/0 = 0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wsl7i")
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 1:0/0 = 0
-1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wsl7i")
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 2:0/0 = 0
-2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_oqh86")
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 2:1/0 = 0
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 3:0/0 = 0
+3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 4:0/0 = 0
+4:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 5:0/0 = 0
+5:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 6:0/0 = 0
+6:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 7:0/0 = 0
+7:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 8:0/0 = 0
+8:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 9:0/0 = 0
+9:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 10:0/0 = 0
+10:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0eqpq")
 11:0/0 = 0
 11:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_45pce"]
+texture = ExtResource("2_6v16g")
+0:0/0 = 0
+0:0/0/custom_data_1 = "invisibility"
+1:0/0 = 0
+1:0/0/custom_data_1 = "invulnerability"
+2:0/0 = 0
+2:0/0/custom_data_1 = "repulsiveness"
+3:0/0 = 0
+3:0/0/custom_data_1 = "reflective_shots"
+4:0/0 = 0
+4:0/0/custom_data_1 = "10_super_shots"
+5:0/0 = 0
+5:0/0/custom_data_1 = "transportability"
+0:1/0 = 0
+0:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+2:1/0/custom_data_2 = "extra_shot_speed"
+3:1/0 = 0
+3:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+3:1/0/custom_data_2 = "extra_fight_power"
+4:1/0 = 0
+4:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+4:1/0/custom_data_2 = "extra_move_speed"
+5:1/0 = 0
+5:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+5:1/0/custom_data_2 = "extra_magic_power"
+6:1/0 = 0
+6:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+6:1/0/custom_data_2 = "extra_shot_power"
+7:1/0 = 0
+7:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+7:1/0/custom_data_2 = "extra_armor"
+8:1/0 = 0
+8:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+0:2/animation_columns = 3
+0:2/animation_speed = 8.0
+0:2/animation_frame_0/duration = 1.0
+0:2/animation_frame_1/duration = 1.0
+0:2/animation_frame_2/duration = 1.0
+0:2/0 = 0
+0:2/0/custom_data_4 = true
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6, 6, -6, 6, 7, -8, 7)
+4:2/0 = 0
+4:2/0/custom_data_3 = true
+5:2/0 = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_m8ebo"]
 resource_name = "Collectibles"
@@ -46,8 +107,21 @@ scenes/4/scene = ExtResource("5_ed3tc")
 scenes/5/scene = ExtResource("6_0eqpq")
 
 [resource]
+physics_layer_0/collision_layer = 2048
+physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 4096
+physics_layer_1/collision_mask = 0
 navigation_layer_0/layers = 1
 custom_data_layer_0/name = "exit"
 custom_data_layer_0/type = 1
+custom_data_layer_1/name = "amulet"
+custom_data_layer_1/type = 4
+custom_data_layer_2/name = "permanent_power"
+custom_data_layer_2/type = 4
+custom_data_layer_3/name = "key"
+custom_data_layer_3/type = 1
+custom_data_layer_4/name = "treasure"
+custom_data_layer_4/type = 1
 sources/0 = SubResource("TileSetAtlasSource_wqkje")
 sources/3 = SubResource("TileSetScenesCollectionSource_m8ebo")
+sources/1 = SubResource("TileSetAtlasSource_45pce")

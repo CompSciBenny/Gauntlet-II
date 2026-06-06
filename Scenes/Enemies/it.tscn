@@ -81,7 +81,7 @@ properties/2/path = NodePath(".:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="It Or That" type="CharacterBody2D" unique_id=610540813]
+[node name="It" type="CharacterBody2D" unique_id=610540813]
 collision_layer = 4
 collision_mask = 806
 platform_floor_layers = 4278190080

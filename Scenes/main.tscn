@@ -6,11 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://dqp3koxevnhjm" path="res://Scenes/player.tscn" id="3_y3o8n"]
 [ext_resource type="PackedScene" uid="uid://b3tljq4s5qc4q" path="res://Scenes/UI/ui.tscn" id="4_21xkr"]
 [ext_resource type="Script" uid="uid://bj211avbnkgkg" path="res://Scripts/level_spawner.gd" id="5_6bp64"]
+[ext_resource type="Script" uid="uid://cys61qnxe15sy" path="res://Scripts/enemy_spawner.gd" id="5_344ge"]
 
 [node name="Main" type="Node2D" unique_id=1147173165]
 script = ExtResource("1_14pre")
 
 [node name="Player Container" type="Node2D" parent="." unique_id=2069757221]
+unique_name_in_owner = true
+
+[node name="Enemy Container" type="Node2D" parent="." unique_id=360968238]
 unique_name_in_owner = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=666609817]
@@ -24,6 +28,11 @@ network_player = ExtResource("3_y3o8n")
 unique_name_in_owner = true
 spawn_path = NodePath("..")
 script = ExtResource("5_6bp64")
+
+[node name="Enemy Spawner" type="MultiplayerSpawner" parent="." unique_id=480878409]
+unique_name_in_owner = true
+spawn_path = NodePath("../Enemy Container")
+script = ExtResource("5_344ge")
 
 [node name="UI Container" type="CanvasLayer" parent="." unique_id=821411300]
 

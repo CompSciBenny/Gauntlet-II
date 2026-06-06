@@ -30,7 +30,7 @@ func handle_behavior() -> void:
 
 func attack() -> void:
 	if (attack_cooldown_timer.is_stopped()):
-		if (stun_on_attack): target._set_stunned(true)
+		if (freeze_target_on_attack): target._set_frozen(true)
 		target._take_damage(damage)
 		attack_cooldown_timer.start(1. / attack_rate)
 		total_damage_dealt += damage

@@ -82,9 +82,8 @@ func _on_body_entered(body: Node2D) -> void:
 	# makes sure to only hit enemy hurtboxes (areas, not bodies)
 	if (not body.is_class("TileMapLayer") and body.get_collision_layer_value(3)):
 		return
-		
-	hide()
-	queue_free()
+	
+	impact()
 
 # Calculates reflective shots
 func handle_reflection(layer : TileMapLayer) -> void:
@@ -112,3 +111,18 @@ func handle_reflection(layer : TileMapLayer) -> void:
 	orient_projectile()
 	
 	bounces += 1
+	
+	# Play reflect sound
+	%"Reflect SFX".pitch_scale = randf_range(0.9, 1.1)
+	%"Reflect SFX".play()
+
+func impact() -> void:
+	set_velocity(Vector2.ZERO)
+	%"Hitbox Collider".disabled = true
+	%Sprite.speed_scale = 1.
+	%Sprite.play("Impact")
+
+func _on_sprite_animation_finished() -> void:
+	if (not %Sprite.animation == "Impact"): return
+	hide()
+	queue_free()

@@ -1,104 +1,28 @@
-@tool
-class_name EnemySpawner extends StaticBody2D
-
-@export var enemy_to_spawn : Global.EnemyType
-@export var spawn_delay : float
-
-@export_range(0, 3, 1) var health : int
-
-@export_group("Enemies")
-@export var ghost_scene : PackedScene
-@export var grunt_scene : PackedScene
-@export var demon_scene : PackedScene
-@export var sorcerer_scene : PackedScene
-@export var lobber_scene : PackedScene
-@export var death_scene : PackedScene
-@export var acid_puddle_scene : PackedScene
-@export var super_sorcerer_scene : PackedScene
-@export var dragon_scene : PackedScene
-@export var it_scene : PackedScene
-@export var robber_scene : PackedScene
-@export var mugger_scene : PackedScene
-
-const SPAWN_ACTIVATION_RANGE : int = 256
+class_name EnemySpawner extends MultiplayerSpawner
 
 func _ready() -> void:
-	update_sprite()
-	%"Spawn Timer".wait_time = spawn_delay
-	for ray_cast : RayCast2D in %"Spawn Ray Casts".get_children():
-		ray_cast.add_exception(self)
+	clear_spawnable_scenes()
+	add_enemies_to_spawn_list()
 
-func _process(delta: float) -> void:
-	if Engine.is_editor_hint(): update_sprite()
-
-func get_random_available_spawn_position() -> Vector2:
-	var available_spawn_positions : Array[Vector2] = []
-	for ray_cast : RayCast2D in %"Spawn Ray Casts".get_children():
-		if (ray_cast.is_colliding()): continue
-		available_spawn_positions.append(global_position + (ray_cast.target_position * (2./3.)))
-	if (available_spawn_positions.size() > 0):
-		return available_spawn_positions.pick_random()
-	return Vector2.ZERO
-
-func spawn_enemy(spawn_position : Vector2) -> void:
-	if (spawn_position == Vector2.ZERO): return
-	var new_enemy : Enemy = get_enemy_scene().instantiate()
-	new_enemy.global_position = spawn_position
-	Global.main.current_level.enemy_container.add_child(new_enemy)
-
-func update_sprite() -> void:
-	if (enemy_to_spawn == Global.EnemyType.GHOST):
-		%Sprite.animation = "Ghost"
+func add_enemies_to_spawn_list() -> void:
+	var dir = DirAccess.open("res://Scenes/Enemies/")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				print("Found directory in enemy folder: " + file_name)
+			else:
+				add_spawnable_scene("res://Scenes/Enemies/" + file_name)
+				#print("Found file in enemy folder: " + file_name)
+			file_name = dir.get_next()
 	else:
-		%Sprite.animation = "Other"
-	%Sprite.frame = health
+		print("An error occurred when trying to access the enemy folder path.")
 
-func player_within_range() -> bool:
-	var min_dist : float = 99999
-	for player : Player in Global.main.player_container.get_children():
-		var player_dist : float = global_position.distance_to(player.global_position)
-		if (player_dist <= SPAWN_ACTIVATION_RANGE):
-			return true
-	return false
-
-func get_enemy_scene() -> PackedScene:
-	match enemy_to_spawn:
-		Global.EnemyType.GHOST:
-			return ghost_scene
-		Global.EnemyType.GRUNT:
-			return grunt_scene
-		Global.EnemyType.DEMON:
-			return demon_scene
-		Global.EnemyType.SORCERER:
-			return sorcerer_scene
-		Global.EnemyType.LOBBER:
-			return lobber_scene
-		Global.EnemyType.DEATH:
-			return death_scene
-		Global.EnemyType.ACID_PUDDLE:
-			return acid_puddle_scene
-		Global.EnemyType.SUPER_SORCERER:
-			return super_sorcerer_scene
-		Global.EnemyType.DRAGON:
-			return dragon_scene
-		Global.EnemyType.IT:
-			return it_scene
-		Global.EnemyType.ROBBER:
-			return robber_scene
-		Global.EnemyType.MUGGER:
-			return mugger_scene
-	return
-
-func _on_spawn_timer_timeout() -> void:
-	if (Global.main.current_level.enemy_container.get_child_count() >= Global.main.current_level.MAX_ENEMY_COUNT or
-		not player_within_range()):
-		return
-	spawn_enemy(get_random_available_spawn_position())
-
-func _take_damage(damage_to_take : int) -> void:
-	health -= 1
-	update_sprite()
-	if (health <= 0):
-		Global.main.current_level.add_floor_tile_at_pos(global_position)
-		hide()
-		queue_free()
+func spawn_enemy(enemy_scene_path : String, spawn_position : Vector2, health = -1) -> Enemy:
+	if (not multiplayer.is_server()): return
+	var new_enemy : Enemy = load(enemy_scene_path).instantiate()
+	new_enemy.global_position = spawn_position
+	if (health > 0): new_enemy.health = health
+	get_node(spawn_path).call_deferred("add_child", new_enemy, true)
+	return new_enemy

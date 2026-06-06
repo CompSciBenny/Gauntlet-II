@@ -25,6 +25,7 @@ enum State {
 
 func _ready() -> void:
 	Global.ui = self
+	%"Menu Music".play()
 	_return_to_main_menu()
 	
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -58,12 +59,13 @@ func add_player_banners() -> void:
 	#print(Global.main.player_container.get_child_count())
 	for player : Player in Global.main.player_container.get_children():
 		var new_player_banner : PlayerBanner = player_banner_scene.instantiate()
-		new_player_banner.set_class(player.player_class)
-		new_player_banner.set_color(player.player_color)
-		new_player_banner.set_score(player.score)
-		new_player_banner.set_health(player.health)
-		new_player_banner.set_keys(player.key_count)
-		new_player_banner.set_potions(player.potion_count)
+		new_player_banner.player = player
+		new_player_banner.set_class()
+		new_player_banner.set_color()
+		new_player_banner.set_score()
+		new_player_banner.set_health()
+		new_player_banner.set_keys()
+		new_player_banner.set_potions()
 		%"Player Banners".add_child(new_player_banner)
 
 @rpc("any_peer", "call_local")
@@ -90,16 +92,14 @@ func update_player_banners() -> void:
 	if (not %"Player Banners".get_child_count() == Global.main.player_container.get_child_count()):
 		add_player_banners.rpc()
 		return
-	for i in range(%"Player Banners".get_child_count()):
-		var banner : PlayerBanner = %"Player Banners".get_child(i)
-		var player : Player = Global.main.player_container.get_child(i)
-		banner.set_class(player.player_class)
-		banner.set_color(player.player_color)
-		banner.set_score(player.score)
-		banner.set_health(player.health)
-		banner.set_keys(player.key_count)
-		banner.set_potions(player.potion_count)
-		banner.set_invulnerable_effect(player.active_amulets.has(Amulet.Effect.INVULNERABILITY))
+	for banner in %"Player Banners".get_children():
+		banner.set_class()
+		banner.set_color()
+		banner.set_score()
+		banner.set_health()
+		banner.set_keys()
+		banner.set_potions()
+		banner.set_invulnerable_effect()
 func update_character_previews() -> void:
 	if (not %"Character Previews".get_child_count() == Global.main.player_container.get_child_count()):
 		add_character_previews.rpc()
@@ -139,6 +139,7 @@ func pick_random_tip() -> void:
 	%"Tip Label".text = tips.pick_random()
 @rpc("any_peer", "call_local")
 func activate_level_transition(level_transitioning_to : int) -> void:
+	%"Menu Music".stop()
 	set_level_label(level_transitioning_to)
 	pick_random_tip()
 	%"Title UI".hide()

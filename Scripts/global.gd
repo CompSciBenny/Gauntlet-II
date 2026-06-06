@@ -42,7 +42,7 @@ enum EnemyType {
 	SUPER_SORCERER,
 	DRAGON,
 	IT,
-	ROBBER,
+	THIEF,
 	MUGGER,
 }
 

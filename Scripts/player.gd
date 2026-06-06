@@ -21,6 +21,7 @@ var look_dir : Vector2
 var move_dir : Vector2
 var last_nonzero_move_dir : Vector2
 var transport_pos : Vector2
+var force_field_damage_timer : SceneTreeTimer
 
 @export var active_amulets : Array[Amulet.Effect] = []
 @export var amulet_durations : Array[Variant] = []
@@ -33,10 +34,13 @@ enum State {
 	SHOOTING,
 	EXITING,
 	TRANSPORTING,
-	STUNNED,
+	FROZEN,			# Player can turn around and shoot
+	STUNNED,		# Player can't do anything
+	DEAD,
 }
 
 var in_lobby : bool = true
+var player_spectating : Player = self
 signal exited_level
 
 func _ready() -> void:
@@ -62,27 +66,44 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _process(delta: float) -> void:
-	if (Input.is_action_just_pressed("debug")): print(Global.main.players.size())
 	update_debug_panel()
-	if (not is_multiplayer_authority() or state == State.EXITING or state == State.TRANSPORTING): return
+	if (not is_multiplayer_authority() or state == State.EXITING or state == State.TRANSPORTING or state == State.STUNNED): return
+	
+	# Spectate a player if dead
+	if (state == State.DEAD):
+		if (player_spectating.state == State.DEAD): choose_random_player_to_spectate()
+		%Camera.global_position = player_spectating.global_position
+		return
 	
 	if (Input.is_action_just_released("shoot")):
 		shoot.rpc(look_dir)
+	if (Input.is_action_just_pressed("potion")):
+		pass
 
 	handle_state()
 	calculate_look_dir()	# Must be called before handle_sprite()
 	handle_sprite()
 	handle_amulets(delta)	# Takes delta to keep track of time
-	if (is_on_trap_tile()): Global.main.current_level._activate_trap.rpc(Global.global_to_map(global_position))
+	if (is_on_trap_tile()):
+		Global.main.current_level._activate_trap.rpc("trap", Global.global_to_map(global_position))
+	if (is_on_stun_tile()):
+		Global.main.current_level._activate_trap.rpc("stun", Global.global_to_map(global_position))
+		%Sprite.stop()
+		state = State.STUNNED
+		get_tree().create_timer(Global.main.current_level.STUN_TILE_EFFECT_TIME).connect("timeout", func (): state = State.IDLE)
+	if (is_on_force_field_tile() and not force_field_damage_timer and Global.main.current_level.force_field_tiles_active(Global.global_to_map(global_position))):
+		_take_damage(Global.main.current_level.FORCE_FIELD_DAMAGE)
+		force_field_damage_timer = get_tree().create_timer(1. / Global.main.current_level.FORCE_FIELD_DAMAGE_RATE)
+		force_field_damage_timer.connect("timeout", func (): force_field_damage_timer = null)
 	
 	# Treat collectibles as solid walls if item limit reached
 	set_collision_mask_value(6, key_count + potion_count >= Global.ITEM_LIMIT)
-	
+		
 func _physics_process(delta: float) -> void:
 	if (not is_multiplayer_authority() or state == State.EXITING or state == State.TRANSPORTING): return
 	
 	if (not move_dir == Vector2.ZERO): last_nonzero_move_dir = move_dir
-	if (state == State.STARTING_SHOT or state == State.SHOOTING or state == State.STUNNED):
+	if (state == State.STARTING_SHOT or state == State.SHOOTING or state == State.FROZEN or state == State.STUNNED or state == State.DEAD):
 		move_dir = Vector2.ZERO
 	else:
 		move_dir = Input.get_vector("left", "right", "up", "down")
@@ -123,7 +144,7 @@ func shoot(bullet_move_dir : Vector2) -> void:
 	%"Post Shot Timer".start(post_shot_time)
 
 func handle_state() -> void:
-	if (state == State.TRANSPORTING or state == State.STUNNED): return
+	if (state == State.TRANSPORTING or state == State.FROZEN): return
 	if (is_on_exit_tile() and not state == State.EXITING):
 		state = State.EXITING
 		exit_level()
@@ -139,7 +160,7 @@ func handle_state() -> void:
 func handle_sprite() -> void:
 	var anim_name : String = ""
 	anim_name += get_color_and_class() + " "
-	if (state == State.IDLE or state == State.STUNNED):
+	if (state == State.IDLE or state == State.FROZEN or state == State.STUNNED):
 		anim_name += Global.get_direction_name(look_dir)
 		%Sprite.animation = anim_name
 		%Sprite.stop()
@@ -184,8 +205,11 @@ func calculate_look_dir() -> void:
 
 # Called by enemies sometimes
 func _take_damage(damage_to_take : int) -> void:
+	if (not is_multiplayer_authority() or state == State.DEAD): return
 	health -= damage_to_take
-	if (health < 0): health = 0
+	if (health <= 0):
+		health = 0
+		die.rpc()
 
 # STEPPING ON TRAP TILES
 func is_on_trap_tile() -> bool:
@@ -193,6 +217,16 @@ func is_on_trap_tile() -> bool:
 	var current_tile_data : TileData = Global.main.current_level.trap_layer.get_cell_tile_data(Global.global_to_map(global_position))
 	if (current_tile_data == null): return false
 	return current_tile_data.get_custom_data("trap_type") == "trap"
+func is_on_stun_tile() -> bool:
+	if (not is_instance_valid(Global.main.current_level)): return false
+	var current_tile_data : TileData = Global.main.current_level.trap_layer.get_cell_tile_data(Global.global_to_map(global_position))
+	if (current_tile_data == null): return false
+	return current_tile_data.get_custom_data("trap_type") == "stun"
+func is_on_force_field_tile() -> bool:
+	if (not is_instance_valid(Global.main.current_level)): return false
+	var current_tile_data : TileData = Global.main.current_level.trap_layer.get_cell_tile_data(Global.global_to_map(global_position))
+	if (current_tile_data == null): return false
+	return current_tile_data.get_custom_data("trap_type") == "force_field"
 
 # ENTERING AND EXITING LEVELS
 func is_on_exit_tile() -> bool:
@@ -362,9 +396,9 @@ func update_debug_panel() -> void:
 	%"Keys Label".text = "Keys: " + str(key_count)
 
 # Called by enemies that stun the player (Death, Acid Puddle, etc.)
-func _set_stunned(is_stunned : bool) -> void:
-	if (is_stunned):
-		state = State.STUNNED
+func _set_frozen(is_frozen : bool) -> void:
+	if (is_frozen):
+		state = State.FROZEN
 	else:
 		state = State.IDLE
 
@@ -385,6 +419,18 @@ func get_color_and_class() -> String:
 	var player_color_string : String = Global.PlayerColor.keys()[player_color].to_lower().capitalize()
 	var player_class_string : String = Global.Class.keys()[player_class].to_lower().capitalize()
 	return player_color_string + " " + player_class_string
+
+@rpc("call_local")
+func die() -> void:
+	set_colliders(false)
+	hide()
+	choose_random_player_to_spectate()
+	state = State.DEAD
+func choose_random_player_to_spectate() -> void:
+	for player : Player in Global.main.player_container.get_children():
+		if (player == self or player.state == State.DEAD): continue
+		player_spectating = player
+		break
 
 # TIMER TIMEOUTS
 func _on_health_timer_timeout() -> void:

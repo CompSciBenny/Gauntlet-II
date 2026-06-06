@@ -7,7 +7,7 @@ class_name Enemy extends CharacterBody2D
 
 @export var target_based_on_immediate_distance : bool = false	# If true, will target players based on immediate distance rather than travel distance
 @export var passive : bool = false								# Passive enemies do not chase players, but roam randomly
-@export var stun_on_attack : bool = false
+@export var freeze_target_on_attack : bool = false
 @export var invulnerable : bool = false
 
 @export var hurtbox_area : Area2D
@@ -35,7 +35,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if (target): prev_target = target
 	handle_sprite()
-	if (prev_target and not target == prev_target): prev_target._set_stunned(false)	# Prevents players from being stunned indefinitely
+	if (prev_target and not target == prev_target): prev_target._set_frozen(false)	# Prevents players from being stunned indefinitely
 	if (check_alternative_death_condition()): die()
 
 func _physics_process(delta: float) -> void:
@@ -54,13 +54,16 @@ func get_closest_player() -> Player:
 	if (Global.main.player_container.get_child_count() <= 0): return
 	var closest_player : Player = Global.main.player_container.get_child(0)
 	var min_distance : float
-	if (target_based_on_immediate_distance): min_distance = global_position.distance_to(closest_player.global_position)
-	else: min_distance = get_travel_distance_to_target_pos(closest_player.global_position)
+	#if (target_based_on_immediate_distance): min_distance = global_position.distance_to(closest_player.global_position)
+	#else: min_distance = get_travel_distance_to_target_pos(closest_player.global_position)
+	min_distance = global_position.distance_to(closest_player.global_position)
 	for p : Player in Global.main.player_container.get_children():
+		if (p == closest_player or p.state == Player.State.DEAD): continue
 		var distance : float
-		if (target_based_on_immediate_distance): distance = global_position.distance_to(p.global_position)
-		else: distance = get_travel_distance_to_target_pos(p.global_position)
-		if (distance < min_distance):
+		#if (target_based_on_immediate_distance): distance = global_position.distance_to(p.global_position)
+		#else: distance = get_travel_distance_to_target_pos(p.global_position)
+		distance = global_position.distance_to(p.global_position)
+		if (distance < min_distance or closest_player.state == Player.State.DEAD):
 			closest_player = p
 			min_distance = distance
 	return closest_player
@@ -120,8 +123,9 @@ func get_travel_distance_to_target_pos(target_pos : Vector2) -> float:
 	nav_agent.target_position = target_pos
 	#print("WAITING FOR PATH TO CHANGE!")
 	#await nav_agent.path_changed
-	#print("PATH CHANGED BRO!")
-	return nav_agent.get_path_length()
+	var path_length : float = nav_agent.get_path_length()
+	print(path_length)
+	return path_length
 	
 func is_touching_target() -> bool:
 	for overlapping_area : Area2D in hurtbox_area.get_overlapping_areas():
@@ -135,7 +139,7 @@ func check_alternative_death_condition() -> bool:
 	return false
 
 func die() -> void:
-	target._set_stunned(false)
+	target._set_frozen(false)
 	hide()
 	queue_free()
 func _take_damage(damage_to_take : int) -> void:
@@ -146,6 +150,7 @@ func _take_damage(damage_to_take : int) -> void:
 
 func _on_target_update_timer_timeout() -> void:
 	target = get_closest_player()
+	print("UPDATED TARGET!")
 	get_tree().create_timer(1.).connect("timeout", _on_target_update_timer_timeout)
 func _on_roam_timer_timeout() -> void:
 	roam_target_pos = Global.get_random_floor_tile_pos()

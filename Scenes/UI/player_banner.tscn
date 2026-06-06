@@ -70,9 +70,10 @@ offset_right = -0.03201294
 offset_bottom = -0.0040016174
 theme = ExtResource("3_envqw")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "00000"
+text = "exited"
 horizontal_alignment = 2
 vertical_alignment = 1
+uppercase = true
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 

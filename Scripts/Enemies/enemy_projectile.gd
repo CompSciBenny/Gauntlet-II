@@ -57,6 +57,7 @@ func _on_area_entered(area: Area2D) -> void:
 	# checks if area is on player layer
 	if (area.get_collision_layer_value(2)):
 		area.owner._take_damage(damage)
+		impact()
 
 func _on_body_entered(body: Node2D) -> void:
 	if (body.is_class("TileMapLayer") and is_reflective and bounces < 8):
@@ -96,3 +97,14 @@ func handle_reflection(layer : TileMapLayer) -> void:
 	orient_projectile()
 	
 	bounces += 1
+
+func impact() -> void:
+	set_velocity(Vector2.ZERO)
+	%"Hitbox Collider".disabled = true
+	%Sprite.speed_scale = 1.
+	%Sprite.play("Impact")
+
+func _on_sprite_animation_finished() -> void:
+	if (not %Sprite.animation == "Impact"): return
+	hide()
+	queue_free()

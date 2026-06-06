@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://doebhx255mw5d" path="res://Assets/Sprite Sheets/wizard_sprite_sheet.png" id="6_7dp3o"]
 [ext_resource type="AudioStream" uid="uid://bhhmx5ghmmeo2" path="res://Assets/SFX/Collectible/collect.wav" id="7_8erm5"]
 [ext_resource type="Texture2D" uid="uid://qlcymrix3veq" path="res://Assets/Sprite Sheets/valkyrie_sprite_sheet.png" id="7_h4iuc"]
-[ext_resource type="AudioStream" uid="uid://c82likb1356dw" path="res://Assets/SFX/Player/teleport.OGG" id="8_8erm5"]
+[ext_resource type="AudioStream" uid="uid://c4y1hgny022rg" path="res://Assets/SFX/Player/teleport.wav" id="12_pu2lt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_14ki3"]
 atlas = ExtResource("3_pu2lt")
@@ -4592,10 +4592,11 @@ volume_db = -5.0
 
 [node name="Teleport SFX" type="AudioStreamPlayer" parent="Sound Effects" unique_id=36912197]
 unique_name_in_owner = true
-stream = ExtResource("8_8erm5")
+stream = ExtResource("12_pu2lt")
 volume_db = -5.0
 
 [node name="Debug Panel" type="VBoxContainer" parent="." unique_id=1591392649]
+visible = false
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0

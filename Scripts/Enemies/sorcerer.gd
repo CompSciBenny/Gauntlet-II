@@ -10,17 +10,17 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	#if (invulnerable):
+		#%Sprite.show()
+	#else:
+		#%Sprite.hide()
 
 func handle_special_behavior() -> void:
-	if (invis_timer): return
-	invis_timer = get_tree().create_timer(randf_range(min_invis_time, max_invis_time))
-	invis_timer.connect("timeout", _on_invis_timer_timeout)
+	pass
+	#if (invis_timer or not multiplayer.is_server()): return
+	#invis_timer = get_tree().create_timer(randf_range(min_invis_time, max_invis_time))
+	#invis_timer.connect("timeout", _on_invis_timer_timeout)
 
 func _on_invis_timer_timeout() -> void:
-	if (invulnerable):
-		invulnerable = false
-		%Sprite.show()
-	else:
-		invulnerable = true
-		%Sprite.hide()
+	invulnerable = not invulnerable
 	invis_timer = null
