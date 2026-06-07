@@ -314,6 +314,14 @@ func _on_resume_button_pressed() -> void:
 		get_tree().paused = false
 		state = State.GAME
 
-
-func _on_exit_game_button_pressed() -> void:
+func close_game() -> void:
+	if (multiplayer.is_server()):
+		Global.player_spawner.disconnect_and_despawn_all_players()
+	else:
+		Global.player_spawner.despawn_and_delete_player.rpc(multiplayer.get_unique_id())
 	get_tree().quit()
+func _on_exit_game_button_pressed() -> void:
+	close_game()
+func _notification(what):
+	if (what == NOTIFICATION_WM_CLOSE_REQUEST):
+		close_game()

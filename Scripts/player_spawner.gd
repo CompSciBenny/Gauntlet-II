@@ -11,7 +11,7 @@ func _ready() -> void:
 	NetworkHandler.host_started.connect(spawn_host_player)
 
 func spawn_player(id : int) -> void:
-	var debug_health : int = (Global.main.get_player_count() + 1) * 5
+	#var debug_health : int = (Global.main.get_player_count() + 1) * 5
 	if !multiplayer.is_server(): return
 
 	var new_player : Player = network_player.instantiate()
@@ -23,7 +23,7 @@ func spawn_player(id : int) -> void:
 		new_player.global_position = Global.main.default_player_spawn_positions[Global.main.players.size()]
 	Global.main.players.append(new_player)
 	
-	new_player.health = debug_health
+	#new_player.health = debug_health
 	get_node(spawn_path).call_deferred("add_child", new_player)
 
 func disconnect_and_despawn_all_players() -> void:

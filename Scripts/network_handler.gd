@@ -15,14 +15,13 @@ func _ready():
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
-	peer.create_server(PORT, 3)
+	peer.create_server(PORT, Global.PLAYER_LIMIT - 1)
 	multiplayer.multiplayer_peer = peer
 
 
 func start_client(ip_address : String) -> void:
 	peer = ENetMultiplayerPeer.new()
-	var error_to_return : Error
-	error_to_return = peer.create_client(ip_address, PORT)
+	peer.create_client(ip_address, PORT)
 	multiplayer.multiplayer_peer = peer
 
 
