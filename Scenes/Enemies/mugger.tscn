@@ -284,15 +284,16 @@ animation = &"Down"
 frame_progress = 0.9039508
 metadata/_edit_lock_ = true
 
-[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1316355705]
+[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1859618830]
 unique_name_in_owner = true
-path_desired_distance = 8.0
-path_max_distance = 16.0
+path_desired_distance = 16.0
+path_max_distance = 32.0
 path_postprocessing = 1
+avoidance_enabled = true
 radius = 16.0
-neighbor_distance = 50.0
-max_neighbors = 8
-debug_enabled = true
+neighbor_distance = 20.0
+max_neighbors = 24
+time_horizon_agents = 2.0
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 

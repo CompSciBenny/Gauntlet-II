@@ -296,21 +296,21 @@ animation = &"Up Right"
 frame_progress = 0.3459751
 metadata/_edit_lock_ = true
 
-[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1736198143]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2079375016]
+replication_config = SubResource("SceneReplicationConfig_xqvrf")
+
+[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=2030015495]
 unique_name_in_owner = true
-path_desired_distance = 8.0
-path_max_distance = 10.0
+path_desired_distance = 16.0
+path_max_distance = 32.0
 path_postprocessing = 1
 avoidance_enabled = true
 radius = 16.0
 neighbor_distance = 20.0
 max_neighbors = 24
-debug_enabled = true
+time_horizon_agents = 2.0
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2079375016]
-replication_config = SubResource("SceneReplicationConfig_xqvrf")
 
 [node name="Ray Casts" type="Node2D" parent="." unique_id=2057966444]
 unique_name_in_owner = true

@@ -41,7 +41,7 @@ func disconnect_and_despawn_all_players() -> void:
 	Global.main.players.clear()
 
 @rpc("any_peer", "call_local")
-func despawn_and_delete_player(id : int) -> void:
+func disconnect_and_despawn_player(id : int) -> void:
 	if !multiplayer.is_server(): return
 	NetworkHandler.peer.disconnect_peer(id)
 	for player : Player in Global.main.player_container.get_children():

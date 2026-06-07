@@ -217,7 +217,7 @@ sprite_frames = SubResource("SpriteFrames_ni0v0")
 animation = &"Down Right"
 metadata/_edit_lock_ = true
 
-[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=1316355705]
+[node name="Nav Agent" type="NavigationAgent2D" parent="." unique_id=82218843]
 unique_name_in_owner = true
 path_desired_distance = 16.0
 path_max_distance = 32.0
@@ -227,7 +227,6 @@ radius = 16.0
 neighbor_distance = 20.0
 max_neighbors = 24
 time_horizon_agents = 2.0
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 

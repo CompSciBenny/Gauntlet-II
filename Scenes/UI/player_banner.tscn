@@ -210,6 +210,28 @@ expand_mode = 2
 stretch_mode = 4
 metadata/_edit_lock_ = true
 
+[node name="Disconnected Label" type="Label" parent="." unique_id=2054270845]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5715714
+anchor_top = 0.48400003
+anchor_right = 0.92871433
+anchor_bottom = 0.74200004
+offset_left = -112.032
+offset_top = 15.991999
+offset_right = -0.03201294
+offset_bottom = 15.995998
+theme = ExtResource("3_envqw")
+text = "disconnected"
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
 [node name="Invulnerable Blink Effect Timer" type="Timer" parent="." unique_id=1819919185]
 unique_name_in_owner = true
 wait_time = 0.35
