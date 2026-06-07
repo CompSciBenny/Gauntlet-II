@@ -95,7 +95,7 @@ func get_enemy_scene() -> PackedScene:
 	return
 
 func _on_spawn_timer_timeout() -> void:
-	if (Engine.is_editor_hint()): return
+	if (not Global.main.current_level or not is_instance_valid(Global.main.current_level) or Engine.is_editor_hint()): return
 	%"Spawn Timer".start(randf_range(min_spawn_delay, max_spawn_delay))
 	if (Global.main.current_level.enemy_container.get_child_count() >= Global.main.current_level.MAX_ENEMY_COUNT or not player_within_range()):
 		return

@@ -23,10 +23,12 @@ enum State {
 	MONSTERS,
 	GAME,
 	PAUSE,
+	GAME_OVER,
 }
 
 func _ready() -> void:
 	Global.ui = self
+	hide_all()
 	%"Menu Music".play()
 	%"Title UI".show()
 	_return_to_main_menu()
@@ -36,9 +38,6 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	
 	%"Status Label".text = ""
-	
-	%"Level Label".hide()
-	%"Level Transition".hide()
 	
 func _process(delta: float) -> void:
 	# Deal with pausing the game
@@ -173,44 +172,54 @@ func _on_level_transition_sfx_finished() -> void:
 	if (state == State.GAME or state == State.PAUSE):
 		Global.main._next_level.rpc()
 
-
+func set_up_game_over_screen() -> void:
+	var party_score : int = 0
+	for i in range(Global.PLAYER_LIMIT):
+		if ((i+1) <= Global.main.get_player_count()):
+			%"Player Classes and Colors".get_child(i).text = Global.main.player_container.get_child(i).get_color_and_class()
+			%"Player Scores".get_child(i).text = str(Global.main.player_container.get_child(i).score)
+			match Global.main.player_container.get_child(i).player_color:
+				Global.PlayerColor.BLUE:
+					%"Player Classes and Colors".get_child(i).add_theme_color_override("font_color", Global.BLUE)
+					%"Player Scores".get_child(i).add_theme_color_override("font_color", Global.BLUE)
+				Global.PlayerColor.GREEN:
+					%"Player Classes and Colors".get_child(i).add_theme_color_override("font_color", Global.GREEN)
+					%"Player Scores".get_child(i).add_theme_color_override("font_color", Global.GREEN)
+				Global.PlayerColor.RED:
+					%"Player Classes and Colors".get_child(i).add_theme_color_override("font_color", Global.RED)
+					%"Player Scores".get_child(i).add_theme_color_override("font_color", Global.RED)
+				Global.PlayerColor.YELLOW:
+					%"Player Classes and Colors".get_child(i).add_theme_color_override("font_color", Global.YELLOW)
+					%"Player Scores".get_child(i).add_theme_color_override("font_color", Global.YELLOW)
+			party_score += Global.main.player_container.get_child(i).score
+		else:
+			%"Player Classes and Colors".get_child(i).text = ""
+			%"Player Scores".get_child(i).text = ""
+	%"Party Score Number Label".text = str(party_score)
 func _return_to_main_menu() -> void:
 	get_tree().paused = false
-	if (state == State.LOBBY or state == State.PAUSE):
+	if (state == State.LOBBY or state == State.PAUSE or state == State.GAME):
 		if (multiplayer.is_server()):
 			Global.player_spawner.disconnect_and_despawn_all_players()
 		else:
-			Global.player_spawner.despawn_and_despawn_player.rpc(multiplayer.get_unique_id())
+			Global.player_spawner.despawn_and_delete_player.rpc(multiplayer.get_unique_id())
+	hide_all()
 	%"Title UI".show()
 	%Title.show()
-	%Lobby.hide()
-	%Join.hide()
-	%Controls.hide()
-	%Legend.hide()
-	%Monsters.hide()
-	%Pause.hide()
 	clear_player_banners()
 	clear_character_previews()
 	if (state == State.GAME or state == State.PAUSE):
 		#Global.main._spawn_lobby.rpc()
-		Global.main.delete_current_level()
 		Global.main.delete_all_enemies()
+		Global.main.delete_current_level()
 	state = State.TITLE
 func _on_monsters_button_pressed() -> void:
-	%Title.hide()
-	%Lobby.hide()
-	%Join.hide()
-	%Controls.hide()
-	%Legend.hide()
+	hide_all()
 	%Monsters.show()
 	state = State.MONSTERS
 func _on_legend_button_pressed() -> void:
-	%Title.hide()
-	%Lobby.hide()
-	%Join.hide()
-	%Controls.hide()
+	hide_all()
 	%Legend.show()
-	%Monsters.hide()
 	state = State.LEGEND
 func _on_host_button_pressed() -> void:
 	Global.main.spawn_lobby()
@@ -220,32 +229,20 @@ func _on_host_button_pressed() -> void:
 	state = State.LOBBY
 func _on_join_button_pressed() -> void:
 	Global.main.spawn_lobby()
-	%Title.hide()
-	%Lobby.hide()
+	hide_all()
 	%Join.show()
-	%Controls.hide()
-	%Legend.hide()
-	%Monsters.hide()
 	
 	#%"IP Address Edit".text = ""
 	%"Error Label".text = ""
 	
 	state = State.JOIN
 func _on_controls_button_pressed() -> void:
-	%Title.hide()
-	%Lobby.hide()
-	%Join.hide()
+	hide_all()
 	%Controls.show()
-	%Legend.hide()
-	%Monsters.hide()
 	state = State.CONTROLS
 func show_lobby() -> void:
-	%Title.hide()
+	hide_all()
 	%Lobby.show()
-	%Join.hide()
-	%Controls.hide()
-	%Legend.hide()
-	%Monsters.hide()
 	
 	if (multiplayer.is_server()):
 		%"Start Game Button".show()
@@ -257,6 +254,21 @@ func show_lobby() -> void:
 	%"Player Banners".show()
 	
 	state = State.LOBBY
+func show_game_over() -> void:
+	hide_all()
+	%"Game Over".show()
+	state = State.GAME_OVER
+func hide_all() -> void:
+	%Title.hide()
+	%Lobby.hide()
+	%Join.hide()
+	%Controls.hide()
+	%Legend.hide()
+	%Monsters.hide()
+	%Pause.hide()
+	%"Game Over".hide()
+	%"Level Label".hide()
+	%"Level Transition".hide()
 
 func _attempt_to_join_host() -> void:
 	var address_to_check : String = %"IP Address Edit".text
@@ -301,3 +313,7 @@ func _on_resume_button_pressed() -> void:
 		%Pause.hide()
 		get_tree().paused = false
 		state = State.GAME
+
+
+func _on_exit_game_button_pressed() -> void:
+	get_tree().quit()

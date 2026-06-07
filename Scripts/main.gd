@@ -23,10 +23,18 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if (all_players_dead()):
+		Global.ui.set_up_game_over_screen()
+		Global.ui._return_to_main_menu()
+		Global.ui.show_game_over()
 
 func get_player_count() -> int:
 	return player_container.get_child_count()
+func all_players_dead() -> bool:
+	if (player_container.get_child_count() <= 0): return false
+	for player : Player in player_container.get_children():
+		if (not player.state == Player.State.DEAD): return false
+	return true
 
 @rpc("any_peer", "call_local")
 func _check_for_level_transition() -> void:
