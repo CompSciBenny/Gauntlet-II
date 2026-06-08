@@ -170,6 +170,7 @@ func activate_level_transition(level_transitioning_to : int) -> void:
 func _on_level_transition_sfx_finished() -> void:
 	%"Level Transition".hide()
 	if (state == State.GAME or state == State.PAUSE):
+		Global.main.delete_all_enemies()
 		Global.main._next_level.rpc()
 
 func set_up_game_over_screen() -> void:
@@ -269,6 +270,7 @@ func hide_all() -> void:
 	%"Game Over".hide()
 	%"Level Label".hide()
 	%"Level Transition".hide()
+	%"Bomb Potion Flash".hide()
 
 func _attempt_to_join_host() -> void:
 	var address_to_check : String = %"IP Address Edit".text
@@ -323,3 +325,9 @@ func _close_game() -> void:
 func _notification(what):
 	if (what == NOTIFICATION_WM_CLOSE_REQUEST):
 		_close_game()
+
+# Called by players that use bomb potions
+func _activate_bomb_potion_flash() -> void:
+	%"Bomb Potion Flash".show()
+	await get_tree().create_timer(.1).timeout
+	%"Bomb Potion Flash".hide()

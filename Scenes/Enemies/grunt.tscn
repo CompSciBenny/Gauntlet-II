@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5l2noysm2lxp" path="res://Scripts/Enemies/melee_enemy.gd" id="1_dwwue"]
 [ext_resource type="Texture2D" uid="uid://dbedlhpt3w46t" path="res://Assets/Sprite Sheets/GauntletSamples.png" id="2_dwwue"]
+[ext_resource type="AudioStream" uid="uid://c4r4a36wtmovt" path="res://Assets/SFX/Enemies/grunt_attack.wav" id="3_lg2cd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6d2h5"]
 radius = 12.0
@@ -308,3 +309,8 @@ replication_config = SubResource("SceneReplicationConfig_xqvrf")
 
 [node name="Attack Cooldown Timer" type="Timer" parent="." unique_id=1060107985]
 one_shot = true
+
+[node name="Attack SFX" type="AudioStreamPlayer" parent="." unique_id=297578533]
+unique_name_in_owner = true
+stream = ExtResource("3_lg2cd")
+volume_db = -8.0

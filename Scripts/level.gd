@@ -6,7 +6,7 @@ class_name Level extends Node2D
 @onready var solid_layer : TileMapLayer = %"Solid Layer"
 @onready var trap_layer : TileMapLayer = %"Trap Layer"
 
-const MAX_ENEMY_COUNT : int = 50
+const MAX_ENEMY_COUNT : int = 30
 const STUN_TILE_EFFECT_TIME : float = 1.5
 
 const FORCE_FIELD_DAMAGE : int = 5

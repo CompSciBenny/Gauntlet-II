@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bosjckbrngs8" path="res://Assets/Enemies/Ghost/Up Right/ghost_up_right_1.png" id="22_wo2ef"]
 [ext_resource type="Texture2D" uid="uid://tqw2ct4s0kfs" path="res://Assets/Enemies/Ghost/Up Right/ghost_up_right_2.png" id="23_0a4hl"]
 [ext_resource type="Texture2D" uid="uid://dva1ko7ki4ba" path="res://Assets/Enemies/Ghost/Up Right/ghost_up_right_3.png" id="24_by7ji"]
+[ext_resource type="AudioStream" uid="uid://71518ygj37pw" path="res://Assets/SFX/Enemies/ghost_attack.wav" id="26_2g2if"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6d2h5"]
 radius = 12.0
@@ -235,3 +236,8 @@ replication_config = SubResource("SceneReplicationConfig_xqvrf")
 
 [node name="Attack Cooldown Timer" type="Timer" parent="." unique_id=685754470]
 one_shot = true
+
+[node name="Attack SFX" type="AudioStreamPlayer" parent="." unique_id=1372301963]
+unique_name_in_owner = true
+stream = ExtResource("26_2g2if")
+volume_db = -8.0

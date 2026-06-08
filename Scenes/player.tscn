@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://doebhx255mw5d" path="res://Assets/Sprite Sheets/wizard_sprite_sheet.png" id="6_7dp3o"]
 [ext_resource type="AudioStream" uid="uid://bhhmx5ghmmeo2" path="res://Assets/SFX/Collectible/collect.wav" id="7_8erm5"]
 [ext_resource type="Texture2D" uid="uid://qlcymrix3veq" path="res://Assets/Sprite Sheets/valkyrie_sprite_sheet.png" id="7_h4iuc"]
+[ext_resource type="AudioStream" uid="uid://n0l8hys5hqxw" path="res://Assets/SFX/Player/shoot.wav" id="9_7dp3o"]
+[ext_resource type="AudioStream" uid="uid://bu4y5dtb82ugf" path="res://Assets/SFX/Player/bomb_potion.wav" id="9_ukyrk"]
 [ext_resource type="AudioStream" uid="uid://c4y1hgny022rg" path="res://Assets/SFX/Player/teleport.wav" id="12_pu2lt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_14ki3"]
@@ -4444,6 +4446,9 @@ radius = 12.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3smsa"]
 radius = 15.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pu2lt"]
+size = Vector2(384, 384)
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_74wbi"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -4549,6 +4554,17 @@ limit_right = 1152
 limit_bottom = 1032
 metadata/_edit_lock_ = true
 
+[node name="Potion Hurtbox Area" type="Area2D" parent="Camera" unique_id=690676514]
+unique_name_in_owner = true
+visible = false
+collision_layer = 0
+collision_mask = 4
+metadata/_edit_lock_ = true
+
+[node name="Potion Hurtbox Collider" type="CollisionShape2D" parent="Camera/Potion Hurtbox Area" unique_id=580001920]
+shape = SubResource("RectangleShape2D_pu2lt")
+metadata/_edit_lock_ = true
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1530590008]
 replication_config = SubResource("SceneReplicationConfig_74wbi")
 
@@ -4574,6 +4590,14 @@ stream = ExtResource("3_vgqql")
 volume_db = -2.0
 
 [node name="Shoot SFX" type="AudioStreamPlayer" parent="Sound Effects" unique_id=469848259]
+unique_name_in_owner = true
+stream = ExtResource("9_7dp3o")
+volume_db = -12.0
+
+[node name="Bomb Potion SFX" type="AudioStreamPlayer" parent="Sound Effects" unique_id=102976305]
+unique_name_in_owner = true
+stream = ExtResource("9_ukyrk")
+volume_db = -5.0
 
 [node name="Key SFX" type="AudioStreamPlayer" parent="Sound Effects" unique_id=382888958]
 unique_name_in_owner = true

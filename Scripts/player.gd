@@ -77,8 +77,8 @@ func _process(delta: float) -> void:
 	
 	if (Input.is_action_just_released("shoot")):
 		shoot.rpc(look_dir)
-	if (Input.is_action_just_pressed("potion")):
-		pass
+	if (Input.is_action_just_pressed("bomb_potion")):
+		use_bomb_potion.rpc()
 
 	handle_state()
 	calculate_look_dir()	# Must be called before handle_sprite()
@@ -142,6 +142,17 @@ func shoot(bullet_move_dir : Vector2) -> void:
 	new_projectile.owner_id = name.to_int()
 	get_parent().get_parent().add_child(new_projectile)
 	%"Post Shot Timer".start(post_shot_time)
+	%"Shoot SFX".play()
+@rpc("call_local")
+func use_bomb_potion() -> void:
+	if (potion_count <= 0): return
+	for area : Area2D in %"Potion Hurtbox Area".get_overlapping_areas():
+		var enemy = area.owner
+		enemy.hide()
+		enemy.queue_free()
+	potion_count -= 1
+	Global.ui._activate_bomb_potion_flash()
+	%"Bomb Potion SFX".play()
 
 func handle_state() -> void:
 	if (state == State.TRANSPORTING or state == State.FROZEN): return

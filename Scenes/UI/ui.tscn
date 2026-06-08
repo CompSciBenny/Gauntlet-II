@@ -240,7 +240,7 @@ metadata/_edit_lock_ = true
 [node name="Close Game Button" type="Button" parent="Game UI/Pause/Pause Options Container" unique_id=1527032884]
 layout_mode = 2
 theme = ExtResource("2_nf4gj")
-text = "  LEAVE GAME"
+text = "  CLOSE GAME"
 alignment = 0
 script = ExtResource("6_mmixe")
 metadata/_edit_lock_ = true
@@ -460,6 +460,16 @@ theme = ExtResource("2_nf4gj")
 text = "  MAIN MENU"
 alignment = 0
 script = ExtResource("6_mmixe")
+
+[node name="Bomb Potion Flash" type="ColorRect" parent="Game UI" unique_id=1813539252]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 416.0
+offset_bottom = 392.0
+mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="Title UI" type="TextureRect" parent="." unique_id=742412534]
 unique_name_in_owner = true
@@ -891,7 +901,6 @@ script = ExtResource("6_mmixe")
 
 [node name="Legend" type="TextureRect" parent="Title UI" unique_id=959044640]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -27,7 +27,7 @@ func spawn_player(id : int) -> void:
 	get_node(spawn_path).call_deferred("add_child", new_player)
 
 func disconnect_and_despawn_all_players() -> void:
-	if !multiplayer.is_server(): return
+	if (not multiplayer.is_server() or get_node(spawn_path).get_child_count() <= 0): return
 	var host : Player
 	for player : Player in get_node(spawn_path).get_children():
 		if (int(player.name) == 1):

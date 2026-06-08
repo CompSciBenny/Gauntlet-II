@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dk0p4guiaxt8t" path="res://Scripts/Enemies/acid_puddle.gd" id="1_nbfmf"]
 [ext_resource type="Texture2D" uid="uid://dbedlhpt3w46t" path="res://Assets/Sprite Sheets/GauntletSamples.png" id="2_4qwte"]
+[ext_resource type="AudioStream" uid="uid://c61j0fu0sa8uu" path="res://Assets/SFX/Enemies/acid_puddle.wav" id="3_4qwte"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6d2h5"]
 radius = 12.0
@@ -311,3 +312,8 @@ replication_config = SubResource("SceneReplicationConfig_xqvrf")
 
 [node name="Attack Cooldown Timer" type="Timer" parent="." unique_id=1143151893]
 one_shot = true
+
+[node name="Attack SFX" type="AudioStreamPlayer" parent="." unique_id=803306470]
+unique_name_in_owner = true
+stream = ExtResource("3_4qwte")
+volume_db = -8.0

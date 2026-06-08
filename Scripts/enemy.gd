@@ -151,6 +151,7 @@ func _take_damage(damage_to_take : int) -> void:
 		die()
 
 func _on_target_update_timer_timeout() -> void:
+	if (not is_instance_valid(self) or not get_tree()): return
 	target = get_closest_player()
 	get_tree().create_timer(1.).connect("timeout", _on_target_update_timer_timeout)
 func _on_roam_timer_timeout() -> void:

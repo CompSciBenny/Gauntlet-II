@@ -35,3 +35,4 @@ func attack() -> void:
 		target._take_damage(damage)
 		attack_cooldown_timer.start(1. / attack_rate)
 		total_damage_dealt += damage
+		if (%"Attack SFX"): %"Attack SFX".play()
